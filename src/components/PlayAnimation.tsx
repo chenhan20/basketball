@@ -29,8 +29,8 @@ export default function PlayAnimation({
   const offensePlayers = step.players.filter((p) => p.team === 'offense');
   const defensePlayers = step.players.filter((p) => p.team === 'defense');
   const draggable = !!onPlayerDrag;
-  const transitionCue = animate && previousStep;
-  const movedPlayers = transitionCue
+  const shouldShowTransition = animate && previousStep;
+  const movedPlayers = shouldShowTransition
     ? step.players
       .map((player) => {
         const previous = previousStep.players.find((p) => p.id === player.id);
@@ -49,7 +49,9 @@ export default function PlayAnimation({
         movementType: MovementType;
       } => item !== null)
     : [];
-  const ballTransition = transitionCue ? getBallTransition(previousStep.players, step.players) : null;
+  const ballTransition = shouldShowTransition
+    ? getBallTransition(previousStep.players, step.players)
+    : null;
 
   return (
     <div className="court-wrapper">
@@ -65,7 +67,7 @@ export default function PlayAnimation({
         {/* Court */}
         <Court />
 
-        {transitionCue ? (
+        {shouldShowTransition ? (
           <>
             {/* Previous-position ghosts show where the action started. */}
             {movedPlayers.map(({ previous }) => (
@@ -138,15 +140,16 @@ export default function PlayAnimation({
 
 function inferMovementType(
   previousStep: PlayStep,
-  player: PlayerState,
+  currentPlayer: PlayerState,
 ): MovementType {
   const authoredMovement = previousStep.movements?.find(
     (movement) =>
-      movement.playerId === player.id &&
-      Math.hypot(movement.toX - player.x, movement.toY - player.y) < MOVEMENT_MATCH_THRESHOLD,
+      movement.playerId === currentPlayer.id &&
+      Math.hypot(movement.toX - currentPlayer.x, movement.toY - currentPlayer.y) <
+        MOVEMENT_MATCH_THRESHOLD,
   );
   if (authoredMovement) return authoredMovement.type;
-  return player.team === 'defense' ? 'run' : 'cut';
+  return currentPlayer.team === 'defense' ? 'run' : 'cut';
 }
 
 function getBallTransition(previousPlayers: PlayerState[], currentPlayers: PlayerState[]) {
