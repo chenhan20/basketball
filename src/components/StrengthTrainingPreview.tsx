@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 import type * as ThreeNamespace from 'three';
 
-const MODEL_PATH = `${import.meta.env.BASE_URL}models/allen.glb`;
+const MODEL_FILE = 'public/models/allen.glb';
+const MODEL_PATH = `${import.meta.env.BASE_URL}${MODEL_FILE.replace('public/', '')}`;
 type ThreeRuntime = typeof ThreeNamespace;
 
 function createLegoWarrior(THREE: ThreeRuntime) {
@@ -148,7 +149,7 @@ export default function StrengthTrainingPreview() {
       const resize = () => {
         const { width, height } = mount.getBoundingClientRect();
         renderer.setSize(width, height, false);
-        camera.aspect = width / Math.max(height, 1);
+        camera.aspect = Math.max(width, 100) / Math.max(height, 100);
         camera.updateProjectionMatrix();
       };
 
@@ -191,7 +192,7 @@ export default function StrengthTrainingPreview() {
         <h2 className="training-title">LEGO Warrior Mode</h2>
         <p className="training-desc">
           Three.js preview shell is ready; drop Allen's GLB at
-          <code> public/models/allen.glb </code>
+          <code> {MODEL_FILE} </code>
           to replace the fallback model.
         </p>
         <div className="training-actions">
