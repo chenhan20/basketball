@@ -373,7 +373,7 @@ const chicagoAction: Play = {
 };
 
 const beatZoneHighPost: Play = {
-  id: 'beat-zone-high-post-half-court',
+  id: 'beat-two-three-zone-high-post-half-court',
   name: '5. Beat 2-3 · High Post',
   nameZh: '5. 破 2-3 · 高位策應',
   description: 'Put the ball at the free-throw line to collapse the zone.',
@@ -460,7 +460,7 @@ const beatZoneHighPost: Play = {
 };
 
 const zoneDefense23: Play = {
-  id: 'zone-defense-23-half-court',
+  id: 'two-three-zone-defense-half-court',
   name: '1. 2-3 Zone Shell',
   nameZh: '1. 2-3 區域輪轉',
   description: 'A clear shell for how the five defenders shift with the ball.',

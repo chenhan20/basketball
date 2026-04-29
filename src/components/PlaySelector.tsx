@@ -40,7 +40,7 @@ export default function PlaySelector({
   const groupedPlays = useMemo(() => ({
     offense: plays.filter((play) => play.type === 'offense'),
     defense: plays.filter((play) => play.type === 'defense'),
-    sandbox: plays.find((play) => play.type === 'sandbox'),
+    sandbox: plays.filter((play) => play.type === 'sandbox'),
   }), [plays]);
 
   const categoryPlays = groupedPlays[activeCategory];
@@ -89,18 +89,21 @@ export default function PlaySelector({
         ))}
       </ul>
 
-      {groupedPlays.sandbox && (
+      {groupedPlays.sandbox.length > 0 && (
         <div className="sandbox-shortcut">
           <div className="play-group-header">
             <span className="play-group-label">Board</span>
             <span className="play-group-label-zh" lang="zh-Hant">自由板</span>
           </div>
           <ul className="play-list sandbox-list" role="listbox" aria-label="Free tactics board">
-            <PlayItem
-              play={groupedPlays.sandbox}
-              selected={groupedPlays.sandbox.id === selectedPlayId}
-              onSelect={onSelect}
-            />
+            {groupedPlays.sandbox.map((play) => (
+              <PlayItem
+                key={play.id}
+                play={play}
+                selected={play.id === selectedPlayId}
+                onSelect={onSelect}
+              />
+            ))}
           </ul>
         </div>
       )}

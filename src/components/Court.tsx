@@ -14,6 +14,17 @@ const PAINT_HALF_W = 60;
 const FT_RADIUS = 60;
 const RA_RADIUS = 40;
 const BB_HALF = 15;
+const LABEL_CIRCLE_FILL = 'rgba(255,255,255,0.7)';
+const LABEL_FILL = 'rgba(255,255,255,0.72)';
+const ELBOW_X = 190;
+const TOP_ELBOW_Y = 170;
+const BOTTOM_ELBOW_Y = 330;
+const LABEL_FONT_SIZE = 12;
+const CORNER_LABEL_X = 80;
+const TOP_CORNER_LABEL_Y = 56;
+const BOTTOM_CORNER_LABEL_Y = 456;
+const TOP_LABEL_X = 320;
+const TOP_LABEL_Y = 252;
 
 export default function Court() {
   const paintTopY = BASKET_Y - PAINT_HALF_W;
@@ -70,13 +81,13 @@ export default function Court() {
       <line x1={43} y1={BASKET_Y - BB_HALF} x2={43} y2={BASKET_Y + BB_HALF} stroke="white" strokeWidth={3} />
       <circle cx={BASKET_X} cy={BASKET_Y} r={9} fill="none" stroke="#FF6B00" strokeWidth={2.5} />
 
-      <circle cx={190} cy={170} r={4} fill="rgba(255,255,255,0.7)" />
-      <circle cx={190} cy={330} r={4} fill="rgba(255,255,255,0.7)" />
-      <text x={198} y={166} fill="rgba(255,255,255,0.72)" fontSize={12} fontWeight={700}>肘區</text>
-      <text x={198} y={336} fill="rgba(255,255,255,0.72)" fontSize={12} fontWeight={700}>肘區</text>
-      <text x={80} y={56} fill="rgba(255,255,255,0.72)" fontSize={12} fontWeight={700}>底角</text>
-      <text x={80} y={456} fill="rgba(255,255,255,0.72)" fontSize={12} fontWeight={700}>底角</text>
-      <text x={320} y={252} fill="rgba(255,255,255,0.72)" fontSize={12} fontWeight={700}>弧頂 / 45°</text>
+      <circle cx={ELBOW_X} cy={TOP_ELBOW_Y} r={4} fill={LABEL_CIRCLE_FILL} />
+      <circle cx={ELBOW_X} cy={BOTTOM_ELBOW_Y} r={4} fill={LABEL_CIRCLE_FILL} />
+      <text x={ELBOW_X + 8} y={TOP_ELBOW_Y - 4} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>肘區</text>
+      <text x={ELBOW_X + 8} y={BOTTOM_ELBOW_Y + 6} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>肘區</text>
+      <text x={CORNER_LABEL_X} y={TOP_CORNER_LABEL_Y} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>底角</text>
+      <text x={CORNER_LABEL_X} y={BOTTOM_CORNER_LABEL_Y} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>底角</text>
+      <text x={TOP_LABEL_X} y={TOP_LABEL_Y} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>弧頂 / 45°</text>
 
       {[220, 240, 260, 280].map((y) => (
         <g key={y}>
