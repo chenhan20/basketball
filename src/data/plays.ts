@@ -196,7 +196,7 @@ const spreadPickAndRoll: Play = {
 };
 
 const driveAndKick: Play = {
-  id: 'drive-kick',
+  id: 'drive-and-kick',
   name: '3. Drive & Kick',
   nameZh: '3. 切入分球',
   description: 'Attack the gap, pull help, then pass to the open shooter.',
