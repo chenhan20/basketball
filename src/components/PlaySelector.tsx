@@ -9,6 +9,7 @@ interface PlaySelectorProps {
 const TYPE_COLORS = {
   offense: { badge: '#1565C0', label: 'Offense' },
   defense: { badge: '#B71C1C', label: 'Defense' },
+  sandbox: { badge: '#6E40C9', label: 'Sandbox' },
 };
 
 export default function PlaySelector({
@@ -107,6 +108,13 @@ export default function PlaySelector({
               <circle cx={10} cy={10} r={8} fill="none" stroke="#FF9800" strokeWidth={2.5} strokeDasharray="4 3" />
             </svg>
             <span>Has ball</span>
+          </div>
+          <div className="legend-item">
+            <svg width={20} height={20} aria-hidden="true">
+              <circle cx={10} cy={10} r={7} fill="#1565C0" stroke="#90CAF9" strokeWidth={1.5} />
+              <path d="M10 3 L10 17 M3 10 L17 10" stroke="#fff" strokeWidth={1.5} />
+            </svg>
+            <span>Drag any player</span>
           </div>
         </div>
       </div>
