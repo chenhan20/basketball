@@ -2,7 +2,8 @@ import type { Play, PlayerState } from '../types';
 
 // Court dimensions: 940 x 500 (94ft x 50ft, 10px = 1ft)
 // Left basket at (52.5, 250), right basket at (887.5, 250).
-// These teaching plays all attack the LEFT basket so the action flows right-to-left.
+// These teaching plays all attack the LEFT basket (lower x coordinates),
+// so actions start on the right side of the half court and flow toward the left rim.
 
 const giveAndGo: Play = {
   id: 'give-and-go',
