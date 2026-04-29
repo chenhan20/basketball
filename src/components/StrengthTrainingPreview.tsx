@@ -2,7 +2,12 @@ import { useEffect, useRef } from 'react';
 import type * as ThreeNamespace from 'three';
 
 const MODEL_FILE = 'public/models/allen.glb';
-const MODEL_PATH = `${import.meta.env.BASE_URL}${MODEL_FILE.replace('public/', '')}`;
+const MODEL_ASSET_PATH = MODEL_FILE.replace('public/', '');
+const MODEL_PATH = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${MODEL_ASSET_PATH}`;
+const MIN_RENDER_DIMENSION = 100;
+const FRAME_INCREMENT = 0.012;
+const ROTATION_SPEED = 0.01;
+const BOUNCE_AMPLITUDE = 0.06;
 type ThreeRuntime = typeof ThreeNamespace;
 
 function createLegoWarrior(THREE: ThreeRuntime) {
@@ -149,7 +154,8 @@ export default function StrengthTrainingPreview() {
       const resize = () => {
         const { width, height } = mount.getBoundingClientRect();
         renderer.setSize(width, height, false);
-        camera.aspect = Math.max(width, 100) / Math.max(height, 100);
+        camera.aspect =
+          Math.max(width, MIN_RENDER_DIMENSION) / Math.max(height, MIN_RENDER_DIMENSION);
         camera.updateProjectionMatrix();
       };
 
@@ -160,9 +166,9 @@ export default function StrengthTrainingPreview() {
       let frame = 0;
       let animationId = 0;
       const animate = () => {
-        frame += 0.012;
-        modelRoot.rotation.y += 0.01;
-        modelRoot.position.y = Math.sin(frame) * 0.06;
+        frame += FRAME_INCREMENT;
+        modelRoot.rotation.y += ROTATION_SPEED;
+        modelRoot.position.y = Math.sin(frame) * BOUNCE_AMPLITUDE;
         renderer.render(scene, camera);
         animationId = window.requestAnimationFrame(animate);
       };
