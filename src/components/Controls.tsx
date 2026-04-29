@@ -6,6 +6,10 @@ interface ControlsProps {
   onNext: () => void;
   onPlayPause: () => void;
   onReset: () => void;
+  /** When true, the per-step "reset positions" button is enabled. */
+  hasOverrides?: boolean;
+  /** Restore the current step's player positions to the original layout. */
+  onResetPositions?: () => void;
 }
 
 export default function Controls({
@@ -16,6 +20,8 @@ export default function Controls({
   onNext,
   onPlayPause,
   onReset,
+  hasOverrides = false,
+  onResetPositions,
 }: ControlsProps) {
   return (
     <div className="controls">
@@ -57,6 +63,18 @@ export default function Controls({
         >
           ▶
         </button>
+
+        {onResetPositions && (
+          <button
+            className="ctrl-btn"
+            onClick={onResetPositions}
+            disabled={!hasOverrides}
+            title="Reset dragged players on this step"
+            aria-label="Reset player positions on this step"
+          >
+            ↺
+          </button>
+        )}
       </div>
 
       <div className="step-indicator" aria-live="polite">

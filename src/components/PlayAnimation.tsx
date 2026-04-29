@@ -9,11 +9,20 @@ const VIEWBOX_H = 500;
 interface PlayAnimationProps {
   step: PlayStep;
   animate: boolean;
+  /** When provided, players become draggable and this is invoked with svg-space coords. */
+  onPlayerDrag?: (id: number, x: number, y: number) => void;
+  onPlayerDragEnd?: () => void;
 }
 
-export default function PlayAnimation({ step, animate }: PlayAnimationProps) {
+export default function PlayAnimation({
+  step,
+  animate,
+  onPlayerDrag,
+  onPlayerDragEnd,
+}: PlayAnimationProps) {
   const offensePlayers = step.players.filter((p) => p.team === 'offense');
   const defensePlayers = step.players.filter((p) => p.team === 'defense');
+  const draggable = !!onPlayerDrag;
 
   return (
     <div className="court-wrapper">
@@ -41,12 +50,26 @@ export default function PlayAnimation({ step, animate }: PlayAnimationProps) {
 
         {/* Defense players */}
         {defensePlayers.map((p) => (
-          <Player key={p.id} player={p} animate={animate} />
+          <Player
+            key={p.id}
+            player={p}
+            animate={animate}
+            draggable={draggable}
+            onDrag={onPlayerDrag}
+            onDragEnd={onPlayerDragEnd}
+          />
         ))}
 
         {/* Offense players (rendered on top) */}
         {offensePlayers.map((p) => (
-          <Player key={p.id} player={p} animate={animate} />
+          <Player
+            key={p.id}
+            player={p}
+            animate={animate}
+            draggable={draggable}
+            onDrag={onPlayerDrag}
+            onDragEnd={onPlayerDragEnd}
+          />
         ))}
       </svg>
     </div>
