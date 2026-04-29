@@ -10,6 +10,8 @@ export interface PlayerState {
   x: number;
   y: number;
   hasBall?: boolean;
+  /** Optional display label for team-specific teaching pages. */
+  label?: string;
 }
 
 export interface Movement {

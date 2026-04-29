@@ -4,9 +4,9 @@ import type { PlayerState } from '../types';
 
 const RADIUS = 20;
 
-const POSITION_COLORS: Record<string, { fill: string; stroke: string }> = {
-  offense: { fill: '#1565C0', stroke: '#90CAF9' },
-  defense: { fill: '#B71C1C', stroke: '#EF9A9A' },
+const POSITION_COLORS: Record<string, { fill: string; stroke: string; text: string }> = {
+  offense: { fill: '#EA580C', stroke: '#FDBA74', text: 'white' },
+  defense: { fill: '#FACC15', stroke: '#FEF08A', text: '#111827' },
 };
 
 interface PlayerProps {
@@ -38,9 +38,10 @@ export default function Player({
   onDragEnd,
   draggable = false,
 }: PlayerProps) {
-  const { fill, stroke } = POSITION_COLORS[player.team];
+  const { fill, stroke, text } = POSITION_COLORS[player.team];
   const [dragging, setDragging] = useState(false);
   const offsetRef = useRef({ dx: 0, dy: 0 });
+  const displayLabel = player.label ?? player.position;
 
   const handlePointerDown = (e: ReactPointerEvent<SVGGElement>) => {
     if (!draggable || !onDrag) return;
@@ -58,8 +59,8 @@ export default function Player({
     const svg = (e.currentTarget.ownerSVGElement) as SVGSVGElement | null;
     if (!svg) return;
     const { x, y } = clientToSvg(svg, e.clientX, e.clientY);
-    // Clamp inside court bounds (940 x 500).
-    const nx = Math.max(RADIUS, Math.min(940 - RADIUS, x - offsetRef.current.dx));
+    // Clamp inside half-court bounds (470 x 500).
+    const nx = Math.max(RADIUS, Math.min(470 - RADIUS, x - offsetRef.current.dx));
     const ny = Math.max(RADIUS, Math.min(500 - RADIUS, y - offsetRef.current.dy));
     onDrag(player.id, nx, ny);
   };
@@ -121,13 +122,13 @@ export default function Player({
       <text
         textAnchor="middle"
         dominantBaseline="central"
-        fontSize={11}
+        fontSize={displayLabel.length > 3 ? 8 : 10}
         fontWeight="700"
         fontFamily="'Inter', 'Segoe UI', sans-serif"
-        fill="white"
+        fill={text}
         style={{ userSelect: 'none', pointerEvents: 'none' }}
       >
-        {player.position}
+        {displayLabel}
       </text>
     </g>
   );

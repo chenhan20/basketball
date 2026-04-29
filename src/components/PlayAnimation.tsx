@@ -3,11 +3,11 @@ import Court from './Court';
 import Player from './Player';
 import { ArrowDefs, MovementArrow, MovementPath, PassArrow, PassPath } from './Arrow';
 
-const VIEWBOX_W = 940;
+const VIEWBOX_W = 470;
 const VIEWBOX_H = 500;
-// Court coordinate units (940 x 500): ignore sub-3px movements, which are visually indistinguishable at normal zoom.
+// Half-court coordinate units (470 x 500): ignore sub-3px movements, which are visually indistinguishable at normal zoom.
 const MIN_VISIBLE_MOVEMENT = 3;
-// Court coordinate units (940 x 500): authored arrows are hand-positioned, so allow a 6px matching tolerance.
+// Half-court coordinate units (470 x 500): authored arrows are hand-positioned, so allow a 6px matching tolerance.
 const MOVEMENT_MATCH_THRESHOLD = 6;
 
 interface PlayAnimationProps {
