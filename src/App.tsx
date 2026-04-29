@@ -8,6 +8,43 @@ import Controls from './components/Controls';
 
 const AUTO_PLAY_INTERVAL = 1800; // ms between steps
 
+const QUICK_NAV = [
+  {
+    labelZh: '總覽',
+    labelEn: 'Plan',
+    playId: 'orange-team-win-keys',
+    matchIds: ['orange-team-win-keys'],
+  },
+  {
+    labelZh: '進攻',
+    labelEn: 'Offense',
+    playId: 'orange-kai-corner-cut',
+    matchIds: [
+      'orange-kai-corner-cut',
+      'orange-baseline-elevator',
+      'orange-tony-midrange-baseline',
+    ],
+  },
+  {
+    labelZh: '三箭頭快攻',
+    labelEn: 'Fast break',
+    playId: 'orange-three-lane-fastbreak-safe',
+    matchIds: ['orange-three-lane-fastbreak-safe'],
+  },
+  {
+    labelZh: '防守',
+    labelEn: 'Defense',
+    playId: 'orange-defend-glenn-fastbreak',
+    matchIds: ['orange-defend-glenn-fastbreak', 'orange-defend-paul-spacing'],
+  },
+  {
+    labelZh: 'SAFE',
+    labelEn: 'Safety',
+    playId: 'orange-safe-switch-mechanism',
+    matchIds: ['orange-safe-switch-mechanism'],
+  },
+];
+
 /** Per-player position override, keyed by `${stepIndex}:${playerId}`. */
 type Overrides = Record<string, { x: number; y: number }>;
 
@@ -131,6 +168,13 @@ function App() {
     () => Object.keys(overrides).some((k) => k.startsWith(`${currentStep}:`)),
     [overrides, currentStep],
   );
+  const quickNavItems = useMemo(
+    () => QUICK_NAV.map((item) => ({
+      ...item,
+      play: plays.find((play) => play.id === item.playId),
+    })).filter((item): item is typeof item & { play: Play } => item.play !== undefined),
+    [],
+  );
 
   return (
     <div className="app">
@@ -158,6 +202,24 @@ function App() {
 
         {/* Right content */}
         <main className="main-content">
+          <nav className="quick-nav" aria-label="快速切換戰術頁籤">
+            {quickNavItems.map((item) => {
+              const selected = item.matchIds.includes(selectedPlay.id);
+              return (
+                <button
+                  key={item.playId}
+                  type="button"
+                  className={`quick-nav-tab ${selected ? 'active' : ''}`}
+                  aria-current={selected ? 'page' : undefined}
+                  onClick={() => handleSelectPlay(item.play)}
+                >
+                  <span lang="zh-Hant">{item.labelZh}</span>
+                  <span>{item.labelEn}</span>
+                </button>
+              );
+            })}
+          </nav>
+
           <section className="play-overview" aria-label="Selected play overview">
             <div>
               <p className="play-overview-kicker" lang="zh-Hant">目前教學</p>
