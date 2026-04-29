@@ -29,8 +29,8 @@ export default function PlayAnimation({
   const offensePlayers = step.players.filter((p) => p.team === 'offense');
   const defensePlayers = step.players.filter((p) => p.team === 'defense');
   const draggable = !!onPlayerDrag;
-  const shouldShowTransition = animate && previousStep;
-  const movedPlayers = shouldShowTransition
+  const isTransitioning = animate && previousStep;
+  const movedPlayers = isTransitioning
     ? step.players
       .map((player) => {
         const previous = previousStep.players.find((p) => p.id === player.id);
@@ -49,7 +49,7 @@ export default function PlayAnimation({
         movementType: MovementType;
       } => item !== null)
     : [];
-  const ballTransition = shouldShowTransition
+  const ballTransition = isTransitioning
     ? getBallTransition(previousStep.players, step.players)
     : null;
 
@@ -67,7 +67,7 @@ export default function PlayAnimation({
         {/* Court */}
         <Court />
 
-        {shouldShowTransition ? (
+        {isTransitioning ? (
           <>
             {/* Previous-position ghosts show where the action started. */}
             {movedPlayers.map(({ previous }) => (

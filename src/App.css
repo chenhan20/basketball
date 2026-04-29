@@ -1,5 +1,9 @@
 /* ── Layout ─────────────────────────────────────────────────────────── */
 
+:root {
+  --viewport-edge-padding: 48px;
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -380,7 +384,7 @@
 .play-btn {
   width: auto;
   min-width: 54px;
-  max-width: min(240px, calc(100vw - 48px));
+  max-width: min(240px, calc(100vw - var(--viewport-edge-padding)));
   height: 54px;
   font-size: 22px;
   background: #1f6feb;
