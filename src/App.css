@@ -30,12 +30,31 @@
   color: #f0f6fc;
   margin: 0;
   letter-spacing: -0.3px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.header-title-zh {
+  font-size: 16px;
+  font-weight: 600;
+  color: #58a6ff;
+  letter-spacing: 0;
 }
 
 .header-sub {
   font-size: 13px;
   color: #8b949e;
   margin-left: 4px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-sub-zh {
+  color: #6e7681;
 }
 
 /* ── Body ────────────────────────────────────────────────────────────── */
@@ -116,6 +135,15 @@
   font-size: 15px;
   font-weight: 600;
   color: #f0f6fc;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.play-name-zh {
+  font-size: 13px;
+  font-weight: 600;
+  color: #58a6ff;
 }
 
 .play-type-badge {
@@ -138,6 +166,10 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.play-description-zh {
+  color: #c9d1d9;
 }
 
 .play-steps-count {
@@ -208,11 +240,24 @@
   margin: 0 0 4px;
 }
 
+.step-title-zh {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #58a6ff;
+  margin-left: 10px;
+}
+
 .step-desc {
   font-size: 14px;
   color: #8b949e;
   line-height: 1.6;
   margin: 0;
+}
+
+.step-desc-zh {
+  color: #c9d1d9;
+  margin-top: 4px;
 }
 
 /* ── Court wrapper / SVG ─────────────────────────────────────────────── */
@@ -232,6 +277,52 @@
   border-radius: 10px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
   display: block;
+}
+
+.player-ghost {
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+.player-ghost circle {
+  fill: rgba(139, 148, 158, 0.12);
+  stroke: rgba(201, 209, 217, 0.8);
+  stroke-width: 2.5;
+  stroke-dasharray: 5 4;
+}
+
+.player-ghost text {
+  fill: #c9d1d9;
+  opacity: 0.9;
+  user-select: none;
+}
+
+.action-path {
+  filter: drop-shadow(0 0 5px currentColor);
+  animation: action-path-pulse 0.75s ease-in-out infinite alternate;
+}
+
+.action-path-move {
+  stroke-width: 4;
+}
+
+.action-path-pass {
+  stroke-width: 4;
+  animation-delay: 0.18s;
+}
+
+.preview-path {
+  opacity: 0.45;
+  filter: drop-shadow(0 0 3px currentColor);
+}
+
+@keyframes action-path-pulse {
+  from {
+    opacity: 0.62;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* ── Controls ────────────────────────────────────────────────────────── */
@@ -287,12 +378,33 @@
 }
 
 .play-btn {
-  width: 54px;
+  width: auto;
+  min-width: 54px;
+  /* Accommodates translated button text while preventing one control from dominating the row. */
+  max-width: min(240px, 100%);
   height: 54px;
   font-size: 22px;
   background: #1f6feb;
   border-color: #388bfd;
   color: white;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.play-btn-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.play-btn-text {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .play-btn:hover:not(:disabled) {

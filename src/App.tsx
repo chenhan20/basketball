@@ -25,6 +25,7 @@ function applyOverrides(step: PlayStep, overrides: Overrides, stepIndex: number)
 function App() {
   const [selectedPlay, setSelectedPlay] = useState<Play>(plays[0]);
   const [currentStep, setCurrentStep] = useState(0);
+  const [transitionFromStep, setTransitionFromStep] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [animate, setAnimate] = useState(false);
   // Drag overrides reset whenever a different play is selected.
@@ -35,10 +36,12 @@ function App() {
 
   const goToStep = useCallback(
     (step: number) => {
+      const nextStep = Math.max(0, Math.min(step, totalSteps - 1));
       setAnimate(true);
-      setCurrentStep(Math.max(0, Math.min(step, totalSteps - 1)));
+      setTransitionFromStep(nextStep === currentStep ? null : currentStep);
+      setCurrentStep(nextStep);
     },
-    [totalSteps],
+    [currentStep, totalSteps],
   );
 
   const handleNext = useCallback(() => {
@@ -54,6 +57,7 @@ function App() {
   const handleReset = () => {
     setIsPlaying(false);
     setAnimate(false);
+    setTransitionFromStep(null);
     setCurrentStep(0);
     setOverrides({});
   };
@@ -64,6 +68,7 @@ function App() {
     setSelectedPlay(play);
     setIsPlaying(false);
     setAnimate(false);
+    setTransitionFromStep(null);
     setCurrentStep(0);
     setOverrides({});
   };
@@ -75,6 +80,7 @@ function App() {
       setCurrentStep((prev) => {
         if (prev < totalSteps - 1) {
           setAnimate(true);
+          setTransitionFromStep(prev);
           return prev + 1;
         }
         setIsPlaying(false);
@@ -107,9 +113,19 @@ function App() {
   };
 
   const baseStep = selectedPlay.steps[currentStep];
+  const basePreviousStep =
+    transitionFromStep === null ? undefined : selectedPlay.steps[transitionFromStep];
   const step = useMemo(
     () => applyOverrides(baseStep, overrides, currentStep),
     [baseStep, overrides, currentStep],
+  );
+  const previousStep = useMemo(
+    () => (
+      basePreviousStep === undefined || transitionFromStep === null
+        ? undefined
+        : applyOverrides(basePreviousStep, overrides, transitionFromStep)
+    ),
+    [basePreviousStep, overrides, transitionFromStep],
   );
   const hasOverridesForStep = useMemo(
     () => Object.keys(overrides).some((k) => k.startsWith(`${currentStep}:`)),
@@ -121,8 +137,14 @@ function App() {
       {/* ── Header ── */}
       <header className="app-header">
         <span className="header-icon">🏀</span>
-        <h1 className="header-title">Basketball Tactics</h1>
-        <span className="header-sub">Visualize plays &amp; rotations · drag any player</span>
+        <h1 className="header-title">
+          Basketball Tactics
+          <span className="header-title-zh" lang="zh-Hant">籃球戰術板</span>
+        </h1>
+        <span className="header-sub">
+          Visualize plays &amp; rotations · drag any player
+          <span className="header-sub-zh" lang="zh-Hant">戰術與輪轉視覺化 · 任何球員都可拖曳</span>
+        </span>
       </header>
 
       {/* ── Main layout ── */}
@@ -138,13 +160,22 @@ function App() {
         <main className="main-content">
           {/* Step info */}
           <div className="step-info">
-            <h2 className="step-title">{step.label}</h2>
+            <h2 className="step-title">
+              {step.label}
+              {step.labelZh && <span className="step-title-zh" lang="zh-Hant">{step.labelZh}</span>}
+            </h2>
             <p className="step-desc">{step.description}</p>
+            {step.descriptionZh && (
+              <p className="step-desc step-desc-zh" lang="zh-Hant">
+                {step.descriptionZh}
+              </p>
+            )}
           </div>
 
           {/* Court */}
           <PlayAnimation
             step={step}
+            previousStep={previousStep}
             animate={animate}
             onPlayerDrag={handlePlayerDrag}
             onPlayerDragEnd={() => setAnimate(true)}
@@ -158,16 +189,16 @@ function App() {
                   className="ctrl-btn play-btn"
                   onClick={handleResetPositions}
                   disabled={!hasOverridesForStep}
-                  title="Reset all players to the starting layout"
-                  aria-label="Reset positions"
+                  title="Reset all players to the starting layout / 重設所有球員回起始位置"
+                  aria-label="Reset positions / 重設位置"
                 >
                   ↺
                 </button>
               </div>
               <span className="step-label">
                 {hasOverridesForStep
-                  ? 'Custom layout · drag players freely'
-                  : 'Drag any player to begin sketching'}
+                  ? 'Custom layout · drag players freely / 自訂陣型 · 自由拖曳球員'
+                  : 'Drag any player to begin sketching / 拖曳任何球員開始繪製戰術'}
               </span>
             </div>
           ) : (
