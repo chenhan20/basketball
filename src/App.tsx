@@ -268,6 +268,7 @@ function App() {
             previousStep={previousStep}
             animate={animate}
             playType={selectedPlay.type}
+            courtView={selectedPlay.courtView}
             onPlayerDrag={handlePlayerDrag}
             onPlayerDragEnd={() => setAnimate(true)}
           />

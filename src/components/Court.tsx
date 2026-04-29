@@ -1,7 +1,10 @@
+import type { CourtView } from '../types';
+
 // Half-court dimensions: 470 x 500 (47ft × 50ft, 10px = 1ft)
-// Basket: (52.5, 250). All teaching plays attack this single rim.
+// Basket: (52.5, 250). Half-court teaching plays attack this single rim.
 
 const COURT_W = 470;
+const FULL_COURT_W = COURT_W * 2;
 const COURT_H = 500;
 const BASKET_X = 52.5;
 const BASKET_Y = 250;
@@ -26,7 +29,31 @@ const BOTTOM_CORNER_LABEL_Y = 456;
 const TOP_LABEL_X = 320;
 const TOP_LABEL_Y = 252;
 
-export default function Court() {
+interface CourtProps {
+  view?: CourtView;
+}
+
+export default function Court({ view = 'half' }: CourtProps) {
+  if (view === 'full') {
+    return (
+      <g>
+        <rect x={0} y={0} width={FULL_COURT_W} height={COURT_H} fill="#c68a4a" />
+        <HalfCourt />
+        <g transform={`translate(${FULL_COURT_W} 0) scale(-1 1)`}>
+          <HalfCourt hideLabels />
+        </g>
+        <line x1={COURT_W} y1={0} x2={COURT_W} y2={COURT_H} stroke="white" strokeWidth={3} />
+        <circle cx={COURT_W} cy={COURT_H / 2} r={60} fill="none" stroke="white" strokeWidth={2} />
+        <circle cx={COURT_W} cy={COURT_H / 2} r={4} fill="white" opacity={0.75} />
+        <text x={COURT_W - 34} y={COURT_H / 2 - 72} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>中線</text>
+      </g>
+    );
+  }
+
+  return <HalfCourt />;
+}
+
+function HalfCourt({ hideLabels = false }: { hideLabels?: boolean }) {
   const paintTopY = BASKET_Y - PAINT_HALF_W;
   const paintBotY = BASKET_Y + PAINT_HALF_W;
 
@@ -81,13 +108,17 @@ export default function Court() {
       <line x1={43} y1={BASKET_Y - BB_HALF} x2={43} y2={BASKET_Y + BB_HALF} stroke="white" strokeWidth={3} />
       <circle cx={BASKET_X} cy={BASKET_Y} r={9} fill="none" stroke="#FF6B00" strokeWidth={2.5} />
 
-      <circle cx={ELBOW_X} cy={TOP_ELBOW_Y} r={4} fill={LABEL_CIRCLE_FILL} />
-      <circle cx={ELBOW_X} cy={BOTTOM_ELBOW_Y} r={4} fill={LABEL_CIRCLE_FILL} />
-      <text x={ELBOW_X + 8} y={TOP_ELBOW_Y - 4} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>肘區</text>
-      <text x={ELBOW_X + 8} y={BOTTOM_ELBOW_Y + 6} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>肘區</text>
-      <text x={CORNER_LABEL_X} y={TOP_CORNER_LABEL_Y} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>底角</text>
-      <text x={CORNER_LABEL_X} y={BOTTOM_CORNER_LABEL_Y} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>底角</text>
-      <text x={TOP_LABEL_X} y={TOP_LABEL_Y} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>弧頂 / 45°</text>
+      {!hideLabels && (
+        <>
+          <circle cx={ELBOW_X} cy={TOP_ELBOW_Y} r={4} fill={LABEL_CIRCLE_FILL} />
+          <circle cx={ELBOW_X} cy={BOTTOM_ELBOW_Y} r={4} fill={LABEL_CIRCLE_FILL} />
+          <text x={ELBOW_X + 8} y={TOP_ELBOW_Y - 4} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>肘區</text>
+          <text x={ELBOW_X + 8} y={BOTTOM_ELBOW_Y + 6} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>肘區</text>
+          <text x={CORNER_LABEL_X} y={TOP_CORNER_LABEL_Y} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>底角</text>
+          <text x={CORNER_LABEL_X} y={BOTTOM_CORNER_LABEL_Y} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>底角</text>
+          <text x={TOP_LABEL_X} y={TOP_LABEL_Y} fill={LABEL_FILL} fontSize={LABEL_FONT_SIZE} fontWeight={700}>弧頂 / 45°</text>
+        </>
+      )}
 
       {[220, 240, 260, 280].map((y) => (
         <g key={y}>

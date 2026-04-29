@@ -2,6 +2,7 @@ export type Position = 'PG' | 'SG' | 'SF' | 'PF' | 'C';
 export type TeamType = 'offense' | 'defense';
 export type MovementType = 'run' | 'cut' | 'screen' | 'dribble';
 export type PlayType = 'offense' | 'defense' | 'sandbox';
+export type CourtView = 'half' | 'full';
 
 export interface PlayerState {
   id: number;
@@ -47,5 +48,7 @@ export interface Play {
   /** Optional Traditional Chinese description, shown beside the English description. */
   descriptionZh?: string;
   type: PlayType;
+  /** Court size used to draw this play. Defaults to half court. */
+  courtView?: CourtView;
   steps: PlayStep[];
 }

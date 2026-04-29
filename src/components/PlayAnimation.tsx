@@ -1,9 +1,10 @@
-import type { MovementType, PlayStep, PlayerState, PlayType } from '../types';
+import type { CourtView, MovementType, PlayStep, PlayerState, PlayType } from '../types';
 import Court from './Court';
 import Player from './Player';
 import { ArrowDefs, MovementArrow, MovementPath, PassArrow, PassPath } from './Arrow';
 
 const VIEWBOX_W = 470;
+const FULL_VIEWBOX_W = VIEWBOX_W * 2;
 const VIEWBOX_H = 500;
 // Half-court coordinate units (470 x 500): ignore sub-3px movements, which are visually indistinguishable at normal zoom.
 const MIN_VISIBLE_MOVEMENT = 3;
@@ -15,6 +16,7 @@ interface PlayAnimationProps {
   previousStep?: PlayStep;
   animate: boolean;
   playType?: PlayType;
+  courtView?: CourtView;
   /** When provided, players become draggable and this is invoked with svg-space coords. */
   onPlayerDrag?: (id: number, x: number, y: number) => void;
   onPlayerDragEnd?: () => void;
@@ -25,12 +27,14 @@ export default function PlayAnimation({
   previousStep,
   animate,
   playType,
+  courtView = 'half',
   onPlayerDrag,
   onPlayerDragEnd,
 }: PlayAnimationProps) {
   const offensePlayers = step.players.filter((p) => p.team === 'offense');
   const defensePlayers = step.players.filter((p) => p.team === 'defense');
   const draggable = !!onPlayerDrag;
+  const viewBoxW = courtView === 'full' ? FULL_VIEWBOX_W : VIEWBOX_W;
 
   // For offense plays show only offense arrows; for defense plays show only defense arrows.
   const teamFilter = (playerId: number) => {
@@ -70,7 +74,7 @@ export default function PlayAnimation({
   return (
     <div className="court-wrapper">
       <svg
-        viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
+        viewBox={`0 0 ${viewBoxW} ${VIEWBOX_H}`}
         preserveAspectRatio="xMidYMid meet"
         className="court-svg"
         role="img"
@@ -79,7 +83,7 @@ export default function PlayAnimation({
         <ArrowDefs />
 
         {/* Court */}
-        <Court />
+        <Court view={courtView} />
 
         {isTransitioning ? (
           <>
