@@ -27,7 +27,7 @@ const giveAndGo: Play = {
   type: 'offense',
   steps: [
     {
-      label: 'Step 1 · 先拉開中路',
+      label: 'Step 1 · Create the Cut Lane',
       labelZh: '第一步 · 建立傳切空間',
       description: 'PG holds the top and SG waits on the wing.',
       descriptionZh: 'PG 在弧頂持球，SG 站右側 45 度準備接球；PF、C 站底角與短角，讓中路保持乾淨。下一拍先傳給 SG。',
@@ -47,7 +47,7 @@ const giveAndGo: Play = {
       movements: [{ playerId: 1, toX: 245, toY: 225, type: 'cut' }],
     },
     {
-      label: 'Step 2 · 傳完立刻切',
+      label: 'Step 2 · Pass and Cut',
       labelZh: '第二步 · PG 空切進入油漆區',
       description: 'PG cuts as SG catches.',
       descriptionZh: 'SG 接球後先看 PG；PG 不站著看球，從防守者身後往罰球線下方空切。D6 被甩在身後。',
@@ -66,7 +66,7 @@ const giveAndGo: Play = {
       movements: [{ playerId: 1, toX: 115, toY: 245, type: 'cut' }],
     },
     {
-      label: 'Step 3 · 回傳窗口',
+      label: 'Step 3 · Return Pass Window',
       labelZh: '第三步 · 在協防前把球塞進去',
       description: 'SG passes before the low defender can help.',
       descriptionZh: 'PG 已切到籃下路線，SG 必須在 C 的防守者完全補到前回傳。這一步只看一件事：空切者有沒有在防守身後。',
@@ -86,7 +86,7 @@ const giveAndGo: Play = {
       movements: [{ playerId: 10, toX: 96, toY: 270, type: 'run' }],
     },
     {
-      label: 'Step 4 · 籃下完成',
+      label: 'Step 4 · Finish at the Rim',
       labelZh: '第四步 · 趕在補防前出手',
       description: 'PG catches near the rim.',
       descriptionZh: 'PG 在籃框旁接球完成上籃；重點不是跑很複雜，而是「傳完就切、接球就攻」。',
@@ -115,7 +115,7 @@ const spreadPickAndRoll: Play = {
   type: 'offense',
   steps: [
     {
-      label: 'Step 1 · 四人拉開',
+      label: 'Step 1 · Spread the Floor',
       labelZh: '第一步 · 中鋒準備上掩護',
       description: 'PG starts high and C prepares the screen.',
       descriptionZh: 'PG 在弧頂持球，SG、SF、PF 拉到兩翼與底角；C 從短角上提，目標是擋住 D6 的側身。',
@@ -134,7 +134,7 @@ const spreadPickAndRoll: Play = {
       movements: [{ playerId: 5, toX: 292, toY: 260, type: 'screen' }],
     },
     {
-      label: 'Step 2 · 掩護到位',
+      label: 'Step 2 · Screen Contact',
       labelZh: '第二步 · PG 貼著掩護過',
       description: 'C screens and PG turns the corner.',
       descriptionZh: 'C 站定在 D6 的側邊，PG 要貼著 C 的肩膀運球，不要繞大圈；D6 被掩護卡住。',
@@ -156,7 +156,7 @@ const spreadPickAndRoll: Play = {
       ],
     },
     {
-      label: 'Step 3 · 二打一判讀',
+      label: 'Step 3 · Two-on-One Read',
       labelZh: '第三步 · 看長人補不補',
       description: 'PG reads the big defender.',
       descriptionZh: 'PG 已轉角進入禁區邊緣。如果 D10 上來擋球，C 下滑就是空檔；如果 D10 不上來，PG 自己攻框。',
@@ -175,7 +175,7 @@ const spreadPickAndRoll: Play = {
       passes: [{ fromPlayerId: 1, toPlayerId: 5 }],
     },
     {
-      label: 'Step 4 · 下滑接球',
+      label: 'Step 4 · Roll Catch',
       labelZh: '第四步 · C 接口袋傳球完成',
       description: 'C catches in stride.',
       descriptionZh: 'PG 把球傳到 C 前進路線上，C 在禁區接球完成；外圍三人不內縮，避免自己的防守者回來夾擊。',
@@ -204,7 +204,7 @@ const driveAndKick: Play = {
   type: 'offense',
   steps: [
     {
-      label: 'Step 1 · 五外站位',
+      label: 'Step 1 · Five-Out Spacing',
       labelZh: '第一步 · 禁區清空',
       description: 'The paint is empty for the drive.',
       descriptionZh: '五名進攻者都站在禁區外，PG 從弧頂持球；右側 SG 是等等要被放掉的射手。',
@@ -223,7 +223,7 @@ const driveAndKick: Play = {
       movements: [{ playerId: 1, toX: 180, toY: 232, type: 'dribble' }],
     },
     {
-      label: 'Step 2 · 突破第一線',
+      label: 'Step 2 · Beat the First Defender',
       labelZh: '第二步 · PG 進入禁區邊緣',
       description: 'PG forces the nearest defender to help.',
       descriptionZh: 'PG 切到禁區邊緣，D7 必須從 SG 身邊收縮來擋球；此時 SG 不亂跑，留在原地準備接球。',
@@ -242,7 +242,7 @@ const driveAndKick: Play = {
       movements: [{ playerId: 7, toX: 172, toY: 188, type: 'run' }],
     },
     {
-      label: 'Step 3 · 協防收縮',
+      label: 'Step 3 · Help Commits',
       labelZh: '第三步 · 找被放掉的人',
       description: 'The help defender leaves SG.',
       descriptionZh: 'D7 已收縮到禁區，SG 的外線空檔出現。PG 看到協防身體轉向後，馬上往外分球。',
@@ -261,7 +261,7 @@ const driveAndKick: Play = {
       passes: [{ fromPlayerId: 1, toPlayerId: 2 }],
     },
     {
-      label: 'Step 4 · 外線接球',
+      label: 'Step 4 · Catch on the Perimeter',
       labelZh: '第四步 · SG 接球投籃或再傳',
       description: 'SG catches before the closeout.',
       descriptionZh: 'SG 在 D7 回補前接球。若防守來得慢就投；若 D7 飛撲，SG 下一拍再攻擊 closeout。',
@@ -290,7 +290,7 @@ const chicagoAction: Play = {
   type: 'offense',
   steps: [
     {
-      label: 'Step 1 · 射手從底角出發',
+      label: 'Step 1 · Shooter Starts Low',
       labelZh: '第一步 · C 準備下掩護',
       description: 'SG starts low and C prepares the pin-down.',
       descriptionZh: 'SG 從底角開始，C 在肘區附近準備幫 SG 下掩護；PG 在側翼持球等待時機。',
@@ -312,7 +312,7 @@ const chicagoAction: Play = {
       ],
     },
     {
-      label: 'Step 2 · 繞下掩護',
+      label: 'Step 2 · Use the Pin-Down',
       labelZh: '第二步 · SG 切到側翼',
       description: 'SG uses the screen and PG moves toward the handoff spot.',
       descriptionZh: 'SG 繞過 C 的下掩護切到側翼；PG 把球交給 C，並往 C 身旁靠近，準備形成手遞手角度。',
@@ -332,7 +332,7 @@ const chicagoAction: Play = {
       movements: [{ playerId: 1, toX: 250, toY: 165, type: 'run' }],
     },
     {
-      label: 'Step 3 · 手遞手轉角',
+      label: 'Step 3 · Handoff Turn',
       labelZh: '第三步 · C 擋住追防者',
       description: 'C hands the ball to SG.',
       descriptionZh: 'C 持球等待 SG 靠近，SG 接手遞手後立刻往中路轉角；C 的身體順勢卡住追防的 D7。',
@@ -352,7 +352,7 @@ const chicagoAction: Play = {
       movements: [{ playerId: 2, toX: 96, toY: 205, type: 'dribble' }],
     },
     {
-      label: 'Step 4 · 捲切攻框',
+      label: 'Step 4 · Curl Downhill',
       labelZh: '第四步 · SG 攻擊籃框',
       description: 'SG turns downhill.',
       descriptionZh: 'SG 接球後往籃框捲切。若 D10 補上來，弱邊 SF 或 PF 就是外傳出口。',
@@ -381,7 +381,7 @@ const beatZoneHighPost: Play = {
   type: 'offense',
   steps: [
     {
-      label: 'Step 1 · 找區域縫隙',
+      label: 'Step 1 · Find the Zone Seam',
       labelZh: '第一步 · C 對準罰球線',
       description: 'The high-post seam is between the two top defenders.',
       descriptionZh: 'PG 在弧頂持球，C 站在罰球線下方，準備往上閃；2-3 區域上方兩人中間就是接球縫隙。',
@@ -400,7 +400,7 @@ const beatZoneHighPost: Play = {
       movements: [{ playerId: 5, toX: 190, toY: 250, type: 'cut' }],
     },
     {
-      label: 'Step 2 · 高位接球',
+      label: 'Step 2 · Flash to High Post',
       labelZh: '第二步 · PG 把球送進罰球線',
       description: 'C flashes and catches before the zone pinches.',
       descriptionZh: 'C 閃到罰球線，PG 立刻傳球。這不是硬傳籃下，而是先把防守吸到中間。',
@@ -420,7 +420,7 @@ const beatZoneHighPost: Play = {
       movements: [{ playerId: 9, toX: 160, toY: 252, type: 'run' }],
     },
     {
-      label: 'Step 3 · 中間上提',
+      label: 'Step 3 · Middle Defender Steps Up',
       labelZh: '第三步 · 底線空間打開',
       description: 'The middle defender steps up to C.',
       descriptionZh: 'C 在高位接球後，D9 必須上提。D9 一離開籃下，底角 SF 的傳球窗口就打開。',
@@ -439,7 +439,7 @@ const beatZoneHighPost: Play = {
       passes: [{ fromPlayerId: 5, toPlayerId: 3 }],
     },
     {
-      label: 'Step 4 · 下分底角',
+      label: 'Step 4 · Dump to the Corner',
       labelZh: '第四步 · SF 底角攻擊',
       description: 'SF catches behind the zone.',
       descriptionZh: 'C 把球下分到底角 SF。若 D10 來不及補，SF 投籃；若 D10 撲出，SF 可沿底線切入。',
@@ -468,7 +468,7 @@ const zoneDefense23: Play = {
   type: 'defense',
   steps: [
     {
-      label: 'Step 1 · 基本陣型',
+      label: 'Step 1 · Base Shape',
       labelZh: '第一步 · 上二下三',
       description: 'Two defenders are high and three are low.',
       descriptionZh: 'D6、D7 守上方，D8、D9、D10 守底線三格。球在弧頂時，五個人先保持區域形狀。',
@@ -492,7 +492,7 @@ const zoneDefense23: Play = {
       ],
     },
     {
-      label: 'Step 2 · 球到側翼',
+      label: 'Step 2 · Ball to Wing',
       labelZh: '第二步 · 最近的人撲球',
       description: 'The nearest top defender closes to the wing.',
       descriptionZh: '球傳到 SG，D6 撲到側翼守球；D8 往底角下沉，D9 補住籃下，D10 往中間收。',
@@ -516,7 +516,7 @@ const zoneDefense23: Play = {
       ],
     },
     {
-      label: 'Step 3 · 球到底角',
+      label: 'Step 3 · Ball to Corner',
       labelZh: '第三步 · 底線防守者接手',
       description: 'The low defender closes to the corner.',
       descriptionZh: '球到底角 PF，D8 撲出去守球；D9 站籃下保護框，D10 收到弱邊籃下，避免背後被偷。',
@@ -540,7 +540,7 @@ const zoneDefense23: Play = {
       ],
     },
     {
-      label: 'Step 4 · 反轉回補',
+      label: 'Step 4 · Reverse and Recover',
       labelZh: '第四步 · 全隊平移到另一側',
       description: 'The zone shifts when the ball reverses.',
       descriptionZh: '球反轉到另一側 SF，D7 變成最近的人要撲球；D9、D10 補下一格，D6、D8 回到中間保護傳球線。',
@@ -569,7 +569,7 @@ const helpRotation: Play = {
   type: 'defense',
   steps: [
     {
-      label: 'Step 1 · 對位與縫隙',
+      label: 'Step 1 · Matchups and Gaps',
       labelZh: '第一步 · 無球站在協防位置',
       description: 'Each defender guards a matchup but stays ready to help.',
       descriptionZh: 'D6 守持球 PG，其餘防守者不要死貼，站在「看球也看人」的縫隙位置，準備協防。',
@@ -588,7 +588,7 @@ const helpRotation: Play = {
       movements: [{ playerId: 1, toX: 185, toY: 235, type: 'dribble' }],
     },
     {
-      label: 'Step 2 · 第一線被過',
+      label: 'Step 2 · First Defender Beaten',
       labelZh: '第二步 · 最近長人先擋球',
       description: 'The nearest big steps up to stop the drive.',
       descriptionZh: 'PG 突破 D6，D10 必須先上前擋球，不能讓持球者直攻籃框；弱邊 D8 開始往籃下補位。',
@@ -610,7 +610,7 @@ const helpRotation: Play = {
       ],
     },
     {
-      label: 'Step 3 · 幫補位的人',
+      label: 'Step 3 · Help the Helper',
       labelZh: '第三步 · D8 補 D10 的人',
       description: 'The helper receives help behind him.',
       descriptionZh: 'D10 擋住持球者後，他原本守的 C 會短暫空掉；D8 下沉補住 C，這就是「help the helper」。',
@@ -633,7 +633,7 @@ const helpRotation: Play = {
       ],
     },
     {
-      label: 'Step 4 · 回補外線',
+      label: 'Step 4 · Recover to Shooters',
       labelZh: '第四步 · 最近的人控制撲防',
       description: 'The defense recovers to the pass.',
       descriptionZh: '球外傳到 SF 後，D8 立刻撲回外線，但要控制速度不要被一步過；其他人重新找到最近對位。',

@@ -269,6 +269,12 @@
   color: #58a6ff;
 }
 
+.play-name-en {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8b949e;
+}
+
 .play-type-badge {
   font-size: 10px;
   font-weight: 700;
@@ -293,6 +299,10 @@
 
 .play-description-zh {
   color: #c9d1d9;
+}
+
+.play-description-en {
+  color: #6e7681;
 }
 
 .play-steps-count {
@@ -371,6 +381,14 @@
   margin-left: 10px;
 }
 
+.step-title-en {
+  color: #8b949e;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
 .step-desc {
   font-size: 14px;
   color: #8b949e;
@@ -380,6 +398,11 @@
 
 .step-desc-zh {
   color: #c9d1d9;
+}
+
+.step-desc-en {
+  color: #6e7681;
+  font-size: 12px;
   margin-top: 4px;
 }
 

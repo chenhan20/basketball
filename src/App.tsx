@@ -161,15 +161,21 @@ function App() {
           {/* Step info */}
           <div className="step-info">
             <h2 className="step-title">
-              {step.label}
-              {step.labelZh && <span className="step-title-zh" lang="zh-Hant">{step.labelZh}</span>}
+              {step.labelZh ? (
+                <>
+                  <span lang="zh-Hant">{step.labelZh}</span>
+                  <span className="step-title-en">{step.label}</span>
+                </>
+              ) : (
+                step.label
+              )}
             </h2>
-            <p className="step-desc">{step.description}</p>
             {step.descriptionZh && (
               <p className="step-desc step-desc-zh" lang="zh-Hant">
                 {step.descriptionZh}
               </p>
             )}
+            <p className="step-desc step-desc-en">{step.description}</p>
           </div>
 
           {/* Court */}

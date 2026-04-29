@@ -129,19 +129,25 @@ function PlayItem({ play, selected, onSelect }: { play: Play; selected: boolean;
     >
       <div className="play-item-header">
         <span className="play-name">
-          {play.name}
-          {play.nameZh && <span className="play-name-zh" lang="zh-Hant">{play.nameZh}</span>}
+          {play.nameZh ? (
+            <>
+              <span className="play-name-zh" lang="zh-Hant">{play.nameZh}</span>
+              <span className="play-name-en">{play.name}</span>
+            </>
+          ) : (
+            play.name
+          )}
         </span>
         <span className="play-type-badge" style={{ background: badge }}>
           {label} · <span lang="zh-Hant">{labelZh}</span>
         </span>
       </div>
-      <p className="play-description">{play.description}</p>
       {play.descriptionZh && (
         <p className="play-description play-description-zh" lang="zh-Hant">
           {play.descriptionZh}
         </p>
       )}
+      <p className="play-description play-description-en">{play.description}</p>
       <span className="play-steps-count">
         {play.steps.length} steps · {play.steps.length} 步
       </span>
