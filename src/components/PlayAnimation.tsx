@@ -5,9 +5,9 @@ import { ArrowDefs, MovementArrow, MovementPath, PassArrow, PassPath } from './A
 
 const VIEWBOX_W = 940;
 const VIEWBOX_H = 500;
-// Ignore tiny coordinate changes that are visually indistinguishable on the court.
+// SVG coordinate units: ignore sub-3px movements, which are visually indistinguishable at normal zoom.
 const MIN_VISIBLE_MOVEMENT = 3;
-// Authored arrows are hand-positioned, so allow a small tolerance when matching them.
+// SVG coordinate units: authored arrows are hand-positioned, so allow a 6px matching tolerance.
 const MOVEMENT_MATCH_THRESHOLD = 6;
 
 interface PlayAnimationProps {

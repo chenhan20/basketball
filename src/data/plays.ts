@@ -5,7 +5,7 @@ import type { Play, PlayerState } from '../types';
 // These teaching plays all attack the LEFT basket so the action flows right-to-left.
 
 const giveAndGo: Play = {
-  id: 'give-and-go-basic',
+  id: 'give-and-go',
   name: '1. Give & Go',
   nameZh: '1. 傳切配合',
   description: 'A clean beginner play: pass, cut immediately, receive the return pass at the rim.',
