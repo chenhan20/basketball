@@ -12,59 +12,86 @@ const TYPE_COLORS = {
   sandbox: { badge: '#6E40C9', label: 'Sandbox', labelZh: '自由板' },
 };
 
+const GROUP_LABELS: Record<string, { en: string; zh: string }> = {
+  offense: { en: 'Offense Plays', zh: '進攻戰術' },
+  defense: { en: 'Defense Plays', zh: '防守戰術' },
+  sandbox: { en: 'Sandbox', zh: '自由板' },
+};
+
 export default function PlaySelector({
   plays,
   selectedPlayId,
   onSelect,
 }: PlaySelectorProps) {
+  // Group plays by type while preserving the authored order within each group.
+  const groups: { type: string; items: Play[] }[] = [];
+  for (const play of plays) {
+    const last = groups[groups.length - 1];
+    if (last && last.type === play.type) {
+      last.items.push(play);
+    } else {
+      groups.push({ type: play.type, items: [play] });
+    }
+  }
+
   return (
     <aside className="play-selector" aria-label="Play selection panel">
       <h2 className="panel-title">📋 Plays · 戰術列表</h2>
 
       <ul className="play-list" role="listbox" aria-label="Available plays">
-        {plays.map((play) => {
-          const { badge, label, labelZh } = TYPE_COLORS[play.type];
-          const isSelected = play.id === selectedPlayId;
+        {groups.map(({ type, items }) => (
+          <li key={type} className="play-group">
+            <div className="play-group-header">
+              <span className="play-group-label">{GROUP_LABELS[type].en}</span>
+              <span className="play-group-label-zh" lang="zh-Hant">{GROUP_LABELS[type].zh}</span>
+            </div>
+            <ul className="play-group-list">
+              {items.map((play) => {
+                const { badge, label, labelZh } = TYPE_COLORS[play.type];
+                const isSelected = play.id === selectedPlayId;
 
-          return (
-            <li
-              key={play.id}
-              className={`play-item ${isSelected ? 'selected' : ''}`}
-              role="option"
-              aria-selected={isSelected}
-              onClick={() => onSelect(play)}
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  onSelect(play);
-                }
-              }}
-            >
-              <div className="play-item-header">
-                <span className="play-name">
-                  {play.name}
-                  {play.nameZh && <span className="play-name-zh" lang="zh-Hant">{play.nameZh}</span>}
-                </span>
-                <span
-                  className="play-type-badge"
-                  style={{ background: badge }}
-                >
-                  {label} · <span lang="zh-Hant">{labelZh}</span>
-                </span>
-              </div>
-              <p className="play-description">{play.description}</p>
-              {play.descriptionZh && (
-                <p className="play-description play-description-zh" lang="zh-Hant">
-                  {play.descriptionZh}
-                </p>
-              )}
-              <span className="play-steps-count">
-                {play.steps.length} steps · {play.steps.length} 步
-              </span>
-            </li>
-          );
-        })}
+                return (
+                  <li
+                    key={play.id}
+                    className={`play-item ${isSelected ? 'selected' : ''}`}
+                    role="option"
+                    aria-selected={isSelected}
+                    onClick={() => onSelect(play)}
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        onSelect(play);
+                      }
+                    }}
+                  >
+                    <div className="play-item-header">
+                      <span className="play-name">
+                        {play.name}
+                        {play.nameZh && <span className="play-name-zh" lang="zh-Hant">{play.nameZh}</span>}
+                      </span>
+                      <span
+                        className="play-type-badge"
+                        style={{ background: badge }}
+                      >
+                        {label} · <span lang="zh-Hant">{labelZh}</span>
+                      </span>
+                    </div>
+                    <p className="play-description">{play.description}</p>
+                    {play.descriptionZh && (
+                      <p className="play-description play-description-zh" lang="zh-Hant">
+                        {play.descriptionZh}
+                      </p>
+                    )}
+                    <span className="play-steps-count">
+                      {play.steps.length} steps · {play.steps.length} 步
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </li>
+        ))}
       </ul>
 
       {/* Legend */}
