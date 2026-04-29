@@ -1,0 +1,75 @@
+{
+  "id": "zone_defense",
+  "name": "2-3 Zone — Help & Recover on Skip Pass",
+  "category": "defense",
+  "description": "Standard 2-3 zone reacting to ball reversal. Strong-side wing defender (X3) helps down on a baseline drive; on the skip pass to the weak-side corner, X2 sprints out while X3 recovers to his original area.",
+  "coaching": [
+    "1. Initial shape: X1/X2 form the top of the 2, X3/X4/X5 form the 3 across the baseline.",
+    "2. Ball is on the right wing; X3 (strong-side wing) jumps the gap to wall off the baseline drive — this is HELP.",
+    "3. The offense reverses with a skip pass over the top to the weak-side corner.",
+    "4. X2 closes out to the corner shooter; X3 RECOVERS back to his original wing area.",
+    "5. Communication is everything — every help action implies someone behind has to rotate."
+  ],
+  "players": [
+    { "id": "o1", "team": "offense", "role": "PG", "label": "1", "start": { "x": 25, "y": 32 } },
+    { "id": "o2", "team": "offense", "role": "SG", "label": "2", "start": { "x": 42, "y": 22 } },
+    { "id": "o3", "team": "offense", "role": "SF", "label": "3", "start": { "x": 4,  "y": 6  } },
+    { "id": "o4", "team": "offense", "role": "PF", "label": "4", "start": { "x": 8,  "y": 22 } },
+    { "id": "o5", "team": "offense", "role": "C",  "label": "5", "start": { "x": 25, "y": 12 } },
+
+    { "id": "d1", "team": "defense", "role": "X", "label": "X1", "start": { "x": 20, "y": 24 } },
+    { "id": "d2", "team": "defense", "role": "X", "label": "X2", "start": { "x": 30, "y": 24 } },
+    { "id": "d3", "team": "defense", "role": "X", "label": "X3", "start": { "x": 35, "y": 8  } },
+    { "id": "d4", "team": "defense", "role": "X", "label": "X4", "start": { "x": 12, "y": 12 } },
+    { "id": "d5", "team": "defense", "role": "X", "label": "X5", "start": { "x": 25, "y": 6  } }
+  ],
+  "steps": [
+    {
+      "duration": 1.2,
+      "note": "Ball on the right wing with 2. The zone shifts toward the strong side.",
+      "moves": [
+        { "player": "d2", "to": { "x": 34, "y": 22 }, "curve": "straight" },
+        { "player": "d1", "to": { "x": 22, "y": 24 }, "curve": "straight" },
+        { "player": "d4", "to": { "x": 18, "y": 12 }, "curve": "straight" }
+      ]
+    },
+    {
+      "duration": 1.4,
+      "note": "2 attacks the baseline. X3 jumps over to HELP and seal the baseline.",
+      "moves": [
+        {
+          "player": "o2",
+          "to": { "x": 44, "y": 8 },
+          "curve": "dribble",
+          "control": { "x": 46, "y": 14 }
+        },
+        { "player": "d3", "to": { "x": 42, "y": 10 }, "curve": "cut" },
+        { "player": "d5", "to": { "x": 30, "y": 6 },  "curve": "straight" }
+      ],
+      "actions": [
+        { "kind": "help", "defender": "d3", "helpOn": "o2" }
+      ]
+    },
+    {
+      "duration": 1.5,
+      "note": "2 skips it cross-court to 3 in the weak-side corner. X2 closes out, X3 RECOVERS.",
+      "moves": [
+        { "player": "d2", "to": { "x": 8, "y": 8 },  "curve": "cut" },
+        { "player": "d3", "to": { "x": 30, "y": 10 }, "curve": "cut" },
+        { "player": "d1", "to": { "x": 25, "y": 24 }, "curve": "straight" },
+        { "player": "d5", "to": { "x": 25, "y": 6 },  "curve": "straight" }
+      ],
+      "actions": [
+        { "kind": "recover", "defender": "d3" }
+      ]
+    },
+    {
+      "duration": 1.2,
+      "note": "Zone reset on the weak side. Shape restored — repeat as needed.",
+      "moves": [
+        { "player": "d4", "to": { "x": 12, "y": 12 }, "curve": "straight" },
+        { "player": "d2", "to": { "x": 10, "y": 10 }, "curve": "straight" }
+      ]
+    }
+  ]
+}

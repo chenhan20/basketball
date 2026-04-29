@@ -1,0 +1,76 @@
+{
+  "id": "pick_and_roll",
+  "name": "Pick & Roll (with Defensive Switch)",
+  "category": "offense",
+  "description": "Classic high pick-and-roll: the 5 sets a ball-screen for the 1, the defense reacts with a switch (X1 takes 5, X5 takes 1).",
+  "coaching": [
+    "1. Spacing: 2, 3, 4 are spread to the corners and weak-side wing to keep helpers honest.",
+    "2. The 5 sprints into a high screen on X1's top shoulder.",
+    "3. The 1 dribbles tight off the screen, attacking the gap.",
+    "4. Defense calls SWITCH: X5 hedges out onto the ball, X1 picks up the rolling 5.",
+    "5. The 5 rolls hard to the rim. If X1 cannot beat him to the spot it is an easy lob."
+  ],
+  "players": [
+    { "id": "o1", "team": "offense", "role": "PG", "label": "1", "start": { "x": 25, "y": 30 } },
+    { "id": "o2", "team": "offense", "role": "SG", "label": "2", "start": { "x": 4,  "y": 6  } },
+    { "id": "o3", "team": "offense", "role": "SF", "label": "3", "start": { "x": 46, "y": 6  } },
+    { "id": "o4", "team": "offense", "role": "PF", "label": "4", "start": { "x": 8,  "y": 22 } },
+    { "id": "o5", "team": "offense", "role": "C",  "label": "5", "start": { "x": 38, "y": 24 } },
+
+    { "id": "d1", "team": "defense", "role": "X",  "label": "X1", "start": { "x": 25, "y": 27 } },
+    { "id": "d2", "team": "defense", "role": "X",  "label": "X2", "start": { "x": 7,  "y": 8  } },
+    { "id": "d3", "team": "defense", "role": "X",  "label": "X3", "start": { "x": 43, "y": 8  } },
+    { "id": "d4", "team": "defense", "role": "X",  "label": "X4", "start": { "x": 11, "y": 22 } },
+    { "id": "d5", "team": "defense", "role": "X",  "label": "X5", "start": { "x": 36, "y": 22 } }
+  ],
+  "steps": [
+    {
+      "duration": 1.4,
+      "note": "5 sprints up to set a high ball screen on X1's right shoulder.",
+      "moves": [
+        { "player": "o5", "to": { "x": 27, "y": 28 }, "curve": "screen" },
+        { "player": "d5", "to": { "x": 27, "y": 25 }, "curve": "straight" }
+      ]
+    },
+    {
+      "duration": 1.6,
+      "note": "1 dribbles off the screen toward the lane. X5 hedges out to slow the ball.",
+      "moves": [
+        {
+          "player": "o1",
+          "to": { "x": 20, "y": 18 },
+          "curve": "dribble",
+          "control": { "x": 23, "y": 26 }
+        },
+        { "player": "d1", "to": { "x": 28, "y": 26 }, "curve": "straight" },
+        { "player": "d5", "to": { "x": 22, "y": 22 }, "curve": "cut" }
+      ],
+      "actions": [
+        { "kind": "switch", "defenderA": "d1", "defenderB": "d5" }
+      ]
+    },
+    {
+      "duration": 1.6,
+      "note": "5 rolls hard to the rim. X1 (now on 5 after the switch) trails behind.",
+      "moves": [
+        {
+          "player": "o5",
+          "to": { "x": 25, "y": 8 },
+          "curve": "cut",
+          "control": { "x": 26, "y": 18 }
+        },
+        { "player": "d1", "to": { "x": 24, "y": 12 }, "curve": "cut" },
+        { "player": "o1", "to": { "x": 18, "y": 16 }, "curve": "dribble" },
+        { "player": "d5", "to": { "x": 20, "y": 18 }, "curve": "straight" }
+      ]
+    },
+    {
+      "duration": 1.4,
+      "note": "1 lobs to 5 at the rim — finish or kick to the open shooter.",
+      "moves": [
+        { "player": "o5", "to": { "x": 25, "y": 6 }, "curve": "cut" },
+        { "player": "d1", "to": { "x": 24, "y": 8 }, "curve": "cut" }
+      ]
+    }
+  ]
+}
