@@ -40,7 +40,7 @@ export default function PlayAnimation({
         return {
           player,
           previous,
-          movementType: inferMovementType(previousStep, player, previous),
+          movementType: inferMovementType(previousStep, player),
         };
       })
       .filter((item): item is {
@@ -139,7 +139,6 @@ export default function PlayAnimation({
 function inferMovementType(
   previousStep: PlayStep,
   player: PlayerState,
-  previous: PlayerState,
 ): MovementType {
   const authoredMovement = previousStep.movements?.find(
     (movement) =>
@@ -147,7 +146,7 @@ function inferMovementType(
       Math.hypot(movement.toX - player.x, movement.toY - player.y) < MOVEMENT_MATCH_THRESHOLD,
   );
   if (authoredMovement) return authoredMovement.type;
-  return player.team === 'defense' || previous.team === 'defense' ? 'run' : 'cut';
+  return player.team === 'defense' ? 'run' : 'cut';
 }
 
 function getBallTransition(previousPlayers: PlayerState[], currentPlayers: PlayerState[]) {
@@ -164,13 +163,20 @@ function PlayerGhost({ player }: { player: PlayerState }) {
       transform={`translate(${player.x}, ${player.y})`}
       aria-hidden="true"
     >
-      <circle r={20} />
+      <circle
+        r={20}
+        fill="rgba(139, 148, 158, 0.12)"
+        stroke="rgba(201, 209, 217, 0.8)"
+        strokeWidth={2.5}
+        strokeDasharray="5 4"
+      />
       <text
         textAnchor="middle"
         dominantBaseline="central"
         fontSize={10}
         fontWeight="700"
         fontFamily="'Inter', 'Segoe UI', sans-serif"
+        fill="#c9d1d9"
       >
         {player.position}
       </text>
