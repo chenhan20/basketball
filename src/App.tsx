@@ -67,7 +67,7 @@ function App() {
 
   const handleSelectPlay = (play: Play) => {
     setSelectedPlay(play);
-    setIsPlaying(false);
+    setIsPlaying(play.type !== 'sandbox');
     setAnimate(false);
     setTransitionFromStep(null);
     setCurrentStep(0);
