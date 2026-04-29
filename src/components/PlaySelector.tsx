@@ -7,9 +7,9 @@ interface PlaySelectorProps {
   onSelect: (play: Play) => void;
 }
 
-type SelectableCategory = Exclude<PlayType, 'sandbox'>;
+type MainCategory = Exclude<PlayType, 'sandbox'>;
 
-const CATEGORY_META: Record<SelectableCategory, { label: string; labelZh: string; hintZh: string }> = {
+const CATEGORY_META: Record<MainCategory, { label: string; labelZh: string; hintZh: string }> = {
   offense: {
     label: 'Offense',
     labelZh: '進攻',
@@ -35,7 +35,7 @@ export default function PlaySelector({
 }: PlaySelectorProps) {
   const selectedPlay = plays.find((play) => play.id === selectedPlayId);
   const initialCategory = selectedPlay?.type === 'defense' ? 'defense' : 'offense';
-  const [activeCategory, setActiveCategory] = useState<SelectableCategory>(initialCategory);
+  const [activeCategory, setActiveCategory] = useState<MainCategory>(initialCategory);
 
   const groupedPlays = useMemo(() => ({
     offense: plays.filter((play) => play.type === 'offense'),
@@ -50,7 +50,7 @@ export default function PlaySelector({
       <h2 className="panel-title">📋 戰術分類 · Plays</h2>
 
       <div className="category-tabs" role="tablist" aria-label="Tactic categories">
-        {(['offense', 'defense'] as SelectableCategory[]).map((type) => {
+        {(['offense', 'defense'] as MainCategory[]).map((type) => {
           const meta = CATEGORY_META[type];
           const selected = activeCategory === type;
           return (

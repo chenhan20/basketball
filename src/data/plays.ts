@@ -19,7 +19,7 @@ const player = (
 });
 
 const giveAndGo: Play = {
-  id: 'give-and-go-half-court',
+  id: 'give-and-go',
   name: '1. Give & Go',
   nameZh: '1. 傳切配合',
   description: 'Pass, cut, and return the ball before the help defense arrives.',
@@ -107,7 +107,7 @@ const giveAndGo: Play = {
 };
 
 const spreadPickAndRoll: Play = {
-  id: 'spread-pick-and-roll-half-court',
+  id: 'spread-pick-and-roll',
   name: '2. Spread Pick & Roll',
   nameZh: '2. 四外一內擋拆',
   description: 'A high ball screen with three shooters spacing the half court.',
@@ -196,7 +196,7 @@ const spreadPickAndRoll: Play = {
 };
 
 const driveAndKick: Play = {
-  id: 'drive-kick-half-court',
+  id: 'drive-kick',
   name: '3. Drive & Kick',
   nameZh: '3. 切入分球',
   description: 'Attack the gap, pull help, then pass to the open shooter.',
@@ -282,7 +282,7 @@ const driveAndKick: Play = {
 };
 
 const chicagoAction: Play = {
-  id: 'chicago-action-half-court',
+  id: 'chicago-action',
   name: '4. Chicago Action',
   nameZh: '4. 芝加哥戰術',
   description: 'Pin-down into dribble handoff, shown as one clear timing chain.',
@@ -373,7 +373,7 @@ const chicagoAction: Play = {
 };
 
 const beatZoneHighPost: Play = {
-  id: 'beat-two-three-zone-high-post-half-court',
+  id: 'beat-two-three-zone-high-post',
   name: '5. Beat 2-3 · High Post',
   nameZh: '5. 破 2-3 · 高位策應',
   description: 'Put the ball at the free-throw line to collapse the zone.',
@@ -460,7 +460,7 @@ const beatZoneHighPost: Play = {
 };
 
 const zoneDefense23: Play = {
-  id: 'two-three-zone-defense-half-court',
+  id: 'two-three-zone-defense',
   name: '1. 2-3 Zone Shell',
   nameZh: '1. 2-3 區域輪轉',
   description: 'A clear shell for how the five defenders shift with the ball.',
@@ -561,7 +561,7 @@ const zoneDefense23: Play = {
 };
 
 const helpRotation: Play = {
-  id: 'man-help-rotation-half-court',
+  id: 'man-help-rotation',
   name: '2. Man Defense · Help Rotation',
   nameZh: '2. 盯人防守 · 協防輪轉',
   description: 'Stop the ball, help the helper, then recover to shooters.',
@@ -667,7 +667,7 @@ const sandboxPlayers: PlayerState[] = [
 ];
 
 const sandbox: Play = {
-  id: 'sandbox-half-court',
+  id: 'sandbox',
   name: '🎨 Free Half-Court Board',
   nameZh: '🎨 半場自由戰術板',
   description: 'Drag players on a half court to sketch your own set.',
