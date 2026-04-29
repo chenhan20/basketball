@@ -5,6 +5,10 @@ import { ArrowDefs, MovementArrow, MovementPath, PassArrow, PassPath } from './A
 
 const VIEWBOX_W = 940;
 const VIEWBOX_H = 500;
+// Ignore tiny coordinate changes that are visually indistinguishable on the court.
+const MIN_VISIBLE_MOVEMENT = 3;
+// Authored arrows are hand-positioned, so allow a small tolerance when matching them.
+const MOVEMENT_MATCH_THRESHOLD = 6;
 
 interface PlayAnimationProps {
   step: PlayStep;
@@ -32,7 +36,7 @@ export default function PlayAnimation({
         const previous = previousStep.players.find((p) => p.id === player.id);
         if (!previous) return null;
         const distance = Math.hypot(player.x - previous.x, player.y - previous.y);
-        if (distance < 3) return null;
+        if (distance < MIN_VISIBLE_MOVEMENT) return null;
         return {
           player,
           previous,
@@ -140,7 +144,7 @@ function inferMovementType(
   const authoredMovement = previousStep.movements?.find(
     (movement) =>
       movement.playerId === player.id &&
-      Math.hypot(movement.toX - player.x, movement.toY - player.y) < 6,
+      Math.hypot(movement.toX - player.x, movement.toY - player.y) < MOVEMENT_MATCH_THRESHOLD,
   );
   if (authoredMovement) return authoredMovement.type;
   return player.team === 'defense' || previous.team === 'defense' ? 'run' : 'cut';
