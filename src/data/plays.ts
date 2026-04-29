@@ -138,7 +138,7 @@ const spreadPickAndRoll: Play = {
         { id: 10, position: 'C', team: 'defense', x: 282, y: 272 },
       ],
       movements: [
-        { playerId: 1, toX: 210, toY: 232, type: 'run' },
+        { playerId: 1, toX: 210, toY: 232, type: 'dribble' },
         { playerId: 5, toX: 122, toY: 270, type: 'cut' },
       ],
     },
@@ -207,7 +207,7 @@ const driveAndKick: Play = {
         { id: 9, position: 'PF', team: 'defense', x: 92, y: 88 },
         { id: 10, position: 'C', team: 'defense', x: 92, y: 412 },
       ],
-      movements: [{ playerId: 1, toX: 178, toY: 235, type: 'run' }],
+      movements: [{ playerId: 1, toX: 178, toY: 235, type: 'dribble' }],
     },
     {
       label: 'Step 2 · Touch the Paint',
@@ -571,7 +571,7 @@ const helpRotation: Play = {
         { id: 9, position: 'PF', team: 'defense', x: 125, y: 125 },
         { id: 10, position: 'C', team: 'defense', x: 125, y: 305 },
       ],
-      movements: [{ playerId: 1, toX: 185, toY: 235, type: 'run' }],
+      movements: [{ playerId: 1, toX: 185, toY: 235, type: 'dribble' }],
     },
     {
       label: 'Step 2 · Ball Beats First Defender',

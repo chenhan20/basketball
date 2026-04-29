@@ -1,6 +1,6 @@
 export type Position = 'PG' | 'SG' | 'SF' | 'PF' | 'C';
 export type TeamType = 'offense' | 'defense';
-export type MovementType = 'run' | 'cut' | 'screen';
+export type MovementType = 'run' | 'cut' | 'screen' | 'dribble';
 export type PlayType = 'offense' | 'defense' | 'sandbox';
 
 export interface PlayerState {

@@ -27,6 +27,7 @@ const MOVEMENT_STYLES: Record<MovementType, { stroke: string; dash: string }> = 
   run:     { stroke: '#76FF03', dash: 'none' },
   cut:     { stroke: '#FFD740', dash: '6 4' },
   screen:  { stroke: '#E040FB', dash: 'none' },
+  dribble: { stroke: '#FF9800', dash: '3 5' },
 };
 
 // ── Arrow Marker defs (call once in <defs>) ──────────────────────────────────
@@ -35,7 +36,7 @@ export function ArrowDefs() {
   return (
     <defs>
       {/* Movement arrows */}
-      {(['run', 'cut', 'screen'] as MovementType[]).map((t) => (
+      {(['run', 'cut', 'screen', 'dribble'] as MovementType[]).map((t) => (
         <marker
           key={t}
           id={`arrow-${t}`}
