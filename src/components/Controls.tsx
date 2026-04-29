@@ -52,7 +52,7 @@ export default function Controls({
           aria-label={isPlaying ? 'Pause / 暫停' : 'Auto-play / 自動播放'}
         >
           <span className="play-btn-icon">{isPlaying ? '⏸' : '▶'}</span>
-          <span className="play-btn-text">{isPlaying ? '暫停' : '自動播放'}</span>
+          <span className="play-btn-text" lang="zh-Hant">{isPlaying ? '暫停' : '自動播放'}</span>
         </button>
 
         <button

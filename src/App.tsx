@@ -123,11 +123,11 @@ function App() {
         <span className="header-icon">🏀</span>
         <h1 className="header-title">
           Basketball Tactics
-          <span className="header-title-zh">籃球戰術板</span>
+          <span className="header-title-zh" lang="zh-Hant">籃球戰術板</span>
         </h1>
         <span className="header-sub">
           Visualize plays &amp; rotations · drag any player
-          <span className="header-sub-zh">戰術與輪轉視覺化 · 任何球員都可拖曳</span>
+          <span className="header-sub-zh" lang="zh-Hant">戰術與輪轉視覺化 · 任何球員都可拖曳</span>
         </span>
       </header>
 
@@ -146,7 +146,7 @@ function App() {
           <div className="step-info">
             <h2 className="step-title">
               {step.label}
-              {step.labelZh && <span className="step-title-zh">{step.labelZh}</span>}
+              {step.labelZh && <span className="step-title-zh" lang="zh-Hant">{step.labelZh}</span>}
             </h2>
             <p className="step-desc">{step.description}</p>
             {step.descriptionZh && (

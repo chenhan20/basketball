@@ -44,13 +44,13 @@ export default function PlaySelector({
               <div className="play-item-header">
                 <span className="play-name">
                   {play.name}
-                  {play.nameZh && <span className="play-name-zh">{play.nameZh}</span>}
+                  {play.nameZh && <span className="play-name-zh" lang="zh-Hant">{play.nameZh}</span>}
                 </span>
                 <span
                   className="play-type-badge"
                   style={{ background: badge }}
                 >
-                  {label} · {labelZh}
+                  {label} · <span lang="zh-Hant">{labelZh}</span>
                 </span>
               </div>
               <p className="play-description">{play.description}</p>
