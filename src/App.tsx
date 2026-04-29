@@ -138,12 +138,12 @@ function App() {
       <header className="app-header">
         <span className="header-icon">🏀</span>
         <h1 className="header-title">
-          Basketball Tactics
-          <span className="header-title-zh" lang="zh-Hant">籃球戰術板</span>
+          Orange Team Tactics
+          <span className="header-title-zh" lang="zh-Hant">橘隊戰術總覽</span>
         </h1>
         <span className="header-sub">
-          Visualize plays &amp; rotations · drag any player
-          <span className="header-sub-zh" lang="zh-Hant">戰術與輪轉視覺化 · 任何球員都可拖曳</span>
+          Win keys, positions, SAFE, and three-lane fast break
+          <span className="header-sub-zh" lang="zh-Hant">鎖死小G · 限制 Paul · 打快攻 · 防守回第一</span>
         </span>
       </header>
 
@@ -158,6 +158,28 @@ function App() {
 
         {/* Right content */}
         <main className="main-content">
+          <section className="play-overview" aria-label="Selected play overview">
+            <div>
+              <p className="play-overview-kicker" lang="zh-Hant">目前教學</p>
+              <h2 className="play-overview-title">
+                {selectedPlay.nameZh ? (
+                  <>
+                    <span lang="zh-Hant">{selectedPlay.nameZh}</span>
+                    <span>{selectedPlay.name}</span>
+                  </>
+                ) : (
+                  selectedPlay.name
+                )}
+              </h2>
+            </div>
+            <div className="play-overview-copy">
+              {selectedPlay.descriptionZh && (
+                <p lang="zh-Hant">{selectedPlay.descriptionZh}</p>
+              )}
+              <p>{selectedPlay.description}</p>
+            </div>
+          </section>
+
           {/* Step info */}
           <div className="step-info">
             <h2 className="step-title">

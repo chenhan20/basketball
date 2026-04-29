@@ -360,6 +360,59 @@
   min-width: 0;
 }
 
+.play-overview {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.35fr) 1fr;
+  gap: 16px;
+  align-items: start;
+  flex-shrink: 0;
+  padding: 14px 16px;
+  border: 1px solid #f97316;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(234, 88, 12, 0.18), rgba(22, 27, 34, 0.92));
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+}
+
+.play-overview-kicker {
+  margin: 0 0 6px;
+  color: #fdba74;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.play-overview-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  color: #f0f6fc;
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.play-overview-title span:last-child {
+  color: #8b949e;
+  font-size: 12px;
+}
+
+.play-overview-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.play-overview-copy p {
+  margin: 0;
+  color: #c9d1d9;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.play-overview-copy p:last-child {
+  color: #6e7681;
+  font-size: 12px;
+}
+
 /* ── Step info ───────────────────────────────────────────────────────── */
 
 .step-info {
@@ -630,6 +683,10 @@
 
   .main-content {
     padding: 16px;
+  }
+
+  .play-overview {
+    grid-template-columns: 1fr;
   }
 }
 
