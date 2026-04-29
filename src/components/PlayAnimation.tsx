@@ -10,6 +10,11 @@ const VIEWBOX_H = 500;
 const MIN_VISIBLE_MOVEMENT = 3;
 // Half-court coordinate units (470 x 500): authored arrows are hand-positioned, so allow a 6px matching tolerance.
 const MOVEMENT_MATCH_THRESHOLD = 6;
+// Basketball graphic constants
+const PLAYER_R = 20;
+const BALL_R = 10;
+const BALL_OX = PLAYER_R + 3;   // offset right of player center
+const BALL_OY = -(PLAYER_R + 3); // offset above player center
 
 interface PlayAnimationProps {
   step: PlayStep;
@@ -35,6 +40,9 @@ export default function PlayAnimation({
   const defensePlayers = step.players.filter((p) => p.team === 'defense');
   const draggable = !!onPlayerDrag;
   const viewBoxW = courtView === 'full' ? FULL_VIEWBOX_W : VIEWBOX_W;
+
+  // Find the ball holder in the current step for the animated basketball.
+  const ballHolder = step.players.find((p) => p.hasBall);
 
   // For offense plays show only offense arrows; for defense plays show only defense arrows.
   const teamFilter = (playerId: number) => {
@@ -151,6 +159,23 @@ export default function PlayAnimation({
             onDragEnd={onPlayerDragEnd}
           />
         ))}
+
+        {/* Animated basketball – follows the ball-holder; CSS transition animates passes */}
+        {ballHolder && (
+          <g
+            transform={`translate(${ballHolder.x + BALL_OX}, ${ballHolder.y + BALL_OY})`}
+            style={{
+              transition: animate ? 'transform 0.55s cubic-bezier(0.4,0,0.2,1)' : 'none',
+              pointerEvents: 'none',
+            }}
+            aria-hidden="true"
+          >
+            <circle r={BALL_R} fill="#e85c04" stroke="#7a2200" strokeWidth={1.5} />
+            <path d={`M 0 ${-BALL_R} Q ${BALL_R * 0.55} 0 0 ${BALL_R}`} fill="none" stroke="#7a2200" strokeWidth={1} />
+            <path d={`M 0 ${-BALL_R} Q ${-BALL_R * 0.55} 0 0 ${BALL_R}`} fill="none" stroke="#7a2200" strokeWidth={1} />
+            <path d={`M ${-BALL_R} 0 Q 0 ${BALL_R * 0.42} ${BALL_R} 0`} fill="none" stroke="#7a2200" strokeWidth={1} />
+          </g>
+        )}
       </svg>
     </div>
   );

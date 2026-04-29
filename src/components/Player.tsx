@@ -109,17 +109,6 @@ export default function Player({
         strokeWidth={2.5}
       />
 
-      {/* Ball indicator */}
-      {player.hasBall && (
-        <circle
-          r={RADIUS + 5}
-          fill="none"
-          stroke="#FF9800"
-          strokeWidth={3}
-          strokeDasharray="4 3"
-        />
-      )}
-
       {/* Position label */}
       <text
         textAnchor="middle"
