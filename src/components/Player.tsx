@@ -58,8 +58,8 @@ export default function Player({
     const svg = (e.currentTarget.ownerSVGElement) as SVGSVGElement | null;
     if (!svg) return;
     const { x, y } = clientToSvg(svg, e.clientX, e.clientY);
-    // Clamp inside court bounds (940 x 500).
-    const nx = Math.max(RADIUS, Math.min(940 - RADIUS, x - offsetRef.current.dx));
+    // Clamp inside half-court bounds (470 x 500).
+    const nx = Math.max(RADIUS, Math.min(470 - RADIUS, x - offsetRef.current.dx));
     const ny = Math.max(RADIUS, Math.min(500 - RADIUS, y - offsetRef.current.dy));
     onDrag(player.id, nx, ny);
   };
