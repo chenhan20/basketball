@@ -360,8 +360,8 @@ const chicagoAction: Play = {
 
 const zoneDefense23: Play = {
   id: 'zone-defense-23-shell',
-  name: '5. 2-3 Zone Shell',
-  nameZh: '5. 2-3 區域輪轉',
+  name: '6. 2-3 Zone Shell',
+  nameZh: '6. 2-3 區域輪轉',
   description: 'A defensive teaching shell: guards cover the top, wings protect corners, middle protects the rim.',
   descriptionZh: '區域防守教學：兩名後衛守上方，兩翼守底角，中間球員護框，球到哪裡整體就往哪裡移動。',
   type: 'defense',
@@ -461,8 +461,8 @@ const zoneDefense23: Play = {
 
 const beatZoneHighPost: Play = {
   id: 'beat-zone-high-post-redesign',
-  name: '6. Beat 2-3 · High Post',
-  nameZh: '6. 破 2-3 · 高位策應',
+  name: '5. Beat 2-3 · High Post',
+  nameZh: '5. 破 2-3 · 高位策應',
   description: 'The simplest way to attack a zone: pass to the free-throw line, then read the collapsing middle.',
   descriptionZh: '破解區域最簡單的原則：把球送到罰球線，讓高位球員判讀收縮的防守。',
   type: 'offense',
@@ -675,8 +675,8 @@ export const plays: Play[] = [
   spreadPickAndRoll,
   driveAndKick,
   chicagoAction,
-  zoneDefense23,
   beatZoneHighPost,
+  zoneDefense23,
   helpRotation,
   sandbox,
 ];

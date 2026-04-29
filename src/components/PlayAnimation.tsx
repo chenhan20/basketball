@@ -1,4 +1,4 @@
-import type { MovementType, PlayStep, PlayerState } from '../types';
+import type { MovementType, PlayStep, PlayerState, PlayType } from '../types';
 import Court from './Court';
 import Player from './Player';
 import { ArrowDefs, MovementArrow, MovementPath, PassArrow, PassPath } from './Arrow';
@@ -14,6 +14,7 @@ interface PlayAnimationProps {
   step: PlayStep;
   previousStep?: PlayStep;
   animate: boolean;
+  playType?: PlayType;
   /** When provided, players become draggable and this is invoked with svg-space coords. */
   onPlayerDrag?: (id: number, x: number, y: number) => void;
   onPlayerDragEnd?: () => void;
@@ -23,16 +24,29 @@ export default function PlayAnimation({
   step,
   previousStep,
   animate,
+  playType,
   onPlayerDrag,
   onPlayerDragEnd,
 }: PlayAnimationProps) {
   const offensePlayers = step.players.filter((p) => p.team === 'offense');
   const defensePlayers = step.players.filter((p) => p.team === 'defense');
   const draggable = !!onPlayerDrag;
+
+  // For offense plays show only offense arrows; for defense plays show only defense arrows.
+  const teamFilter = (playerId: number) => {
+    if (playType === 'offense') return step.players.find((p) => p.id === playerId)?.team === 'offense';
+    if (playType === 'defense') return step.players.find((p) => p.id === playerId)?.team === 'defense';
+    return true;
+  };
+  const filteredMovements = step.movements?.filter((m) => teamFilter(m.playerId));
+  const filteredPasses = step.passes?.filter((p) => teamFilter(p.fromPlayerId) && teamFilter(p.toPlayerId));
+
   const isTransitioning = animate && previousStep;
   const movedPlayers = isTransitioning
     ? step.players
       .map((player) => {
+        // In typed plays, only animate the relevant team's players.
+        if (!teamFilter(player.id)) return null;
         const previous = previousStep.players.find((p) => p.id === player.id);
         if (!previous) return null;
         const distance = Math.hypot(player.x - previous.x, player.y - previous.y);
@@ -100,11 +114,11 @@ export default function PlayAnimation({
         ) : (
           <>
             {/* First step: show the planned next action as a preview. */}
-            {step.movements?.map((m, i) => (
+            {filteredMovements?.map((m, i) => (
               <MovementArrow key={i} movement={m} players={step.players} className="preview-path" />
             ))}
 
-            {step.passes?.map((p, i) => (
+            {filteredPasses?.map((p, i) => (
               <PassArrow key={i} pass={p} players={step.players} className="preview-path" />
             ))}
           </>

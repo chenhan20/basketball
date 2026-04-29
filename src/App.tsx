@@ -5,7 +5,6 @@ import type { Play, PlayStep, PlayerState } from './types';
 import PlayAnimation from './components/PlayAnimation';
 import PlaySelector from './components/PlaySelector';
 import Controls from './components/Controls';
-import StrengthTrainingPreview from './components/StrengthTrainingPreview';
 
 const AUTO_PLAY_INTERVAL = 1800; // ms between steps
 
@@ -178,11 +177,10 @@ function App() {
             step={step}
             previousStep={previousStep}
             animate={animate}
+            playType={selectedPlay.type}
             onPlayerDrag={handlePlayerDrag}
             onPlayerDragEnd={() => setAnimate(true)}
           />
-
-          <StrengthTrainingPreview />
 
           {/* Controls */}
           {isSandbox ? (
