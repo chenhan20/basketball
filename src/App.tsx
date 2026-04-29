@@ -25,6 +25,7 @@ function applyOverrides(step: PlayStep, overrides: Overrides, stepIndex: number)
 function App() {
   const [selectedPlay, setSelectedPlay] = useState<Play>(plays[0]);
   const [currentStep, setCurrentStep] = useState(0);
+  const [transitionFromStep, setTransitionFromStep] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [animate, setAnimate] = useState(false);
   // Drag overrides reset whenever a different play is selected.
@@ -35,10 +36,12 @@ function App() {
 
   const goToStep = useCallback(
     (step: number) => {
+      const nextStep = Math.max(0, Math.min(step, totalSteps - 1));
       setAnimate(true);
-      setCurrentStep(Math.max(0, Math.min(step, totalSteps - 1)));
+      setTransitionFromStep(nextStep === currentStep ? null : currentStep);
+      setCurrentStep(nextStep);
     },
-    [totalSteps],
+    [currentStep, totalSteps],
   );
 
   const handleNext = useCallback(() => {
@@ -54,6 +57,7 @@ function App() {
   const handleReset = () => {
     setIsPlaying(false);
     setAnimate(false);
+    setTransitionFromStep(null);
     setCurrentStep(0);
     setOverrides({});
   };
@@ -64,6 +68,7 @@ function App() {
     setSelectedPlay(play);
     setIsPlaying(false);
     setAnimate(false);
+    setTransitionFromStep(null);
     setCurrentStep(0);
     setOverrides({});
   };
@@ -75,6 +80,7 @@ function App() {
       setCurrentStep((prev) => {
         if (prev < totalSteps - 1) {
           setAnimate(true);
+          setTransitionFromStep(prev);
           return prev + 1;
         }
         setIsPlaying(false);
@@ -107,9 +113,19 @@ function App() {
   };
 
   const baseStep = selectedPlay.steps[currentStep];
+  const basePreviousStep =
+    transitionFromStep === null ? undefined : selectedPlay.steps[transitionFromStep];
   const step = useMemo(
     () => applyOverrides(baseStep, overrides, currentStep),
     [baseStep, overrides, currentStep],
+  );
+  const previousStep = useMemo(
+    () => (
+      basePreviousStep === undefined || transitionFromStep === null
+        ? undefined
+        : applyOverrides(basePreviousStep, overrides, transitionFromStep)
+    ),
+    [basePreviousStep, overrides, transitionFromStep],
   );
   const hasOverridesForStep = useMemo(
     () => Object.keys(overrides).some((k) => k.startsWith(`${currentStep}:`)),
@@ -159,6 +175,7 @@ function App() {
           {/* Court */}
           <PlayAnimation
             step={step}
+            previousStep={previousStep}
             animate={animate}
             onPlayerDrag={handlePlayerDrag}
             onPlayerDragEnd={() => setAnimate(true)}

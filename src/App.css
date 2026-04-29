@@ -279,6 +279,52 @@
   display: block;
 }
 
+.player-ghost {
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+.player-ghost circle {
+  fill: rgba(139, 148, 158, 0.12);
+  stroke: rgba(201, 209, 217, 0.8);
+  stroke-width: 2.5;
+  stroke-dasharray: 5 4;
+}
+
+.player-ghost text {
+  fill: #c9d1d9;
+  opacity: 0.9;
+  user-select: none;
+}
+
+.action-path {
+  filter: drop-shadow(0 0 5px currentColor);
+  animation: action-path-pulse 0.75s ease-in-out infinite alternate;
+}
+
+.action-path-move {
+  stroke-width: 4;
+}
+
+.action-path-pass {
+  stroke-width: 4;
+  animation-delay: 0.18s;
+}
+
+.preview-path {
+  opacity: 0.45;
+  filter: drop-shadow(0 0 3px currentColor);
+}
+
+@keyframes action-path-pulse {
+  from {
+    opacity: 0.62;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* ── Controls ────────────────────────────────────────────────────────── */
 
 .controls {
