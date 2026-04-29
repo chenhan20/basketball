@@ -2,6 +2,26 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## 部署到 GitHub Pages
+
+本專案已設定好 GitHub Actions 工作流程（`.github/workflows/deploy.yml`），會在每次 push 到 `main` 分支時自動 build 並部署到 GitHub Pages。
+
+啟用步驟（只需做一次）：
+
+1. 到 GitHub repository 的 **Settings → Pages**。
+2. 在 **Build and deployment** 的 **Source** 選擇 **GitHub Actions**。
+3. push 一個 commit 到 `main`（或在 Actions 頁面手動觸發 `Deploy to GitHub Pages`）。
+4. 部署完成後，網站會出現在 `https://<your-username>.github.io/basketball/`。
+
+> 註：`vite.config.ts` 中已設定 `base: '/basketball/'`，對應 repo 名稱 `basketball`。若之後改 repo 名稱，請同步更新此設定。
+
+本機 build 預覽：
+
+```bash
+npm run build
+npm run preview
+```
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
