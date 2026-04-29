@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import type * as ThreeNamespace from 'three';
 
 const MODEL_PATH = `${import.meta.env.BASE_URL}models/allen.glb`;
+type ThreeRuntime = typeof ThreeNamespace;
 
-function createLegoWarrior() {
+function createLegoWarrior(THREE: ThreeRuntime) {
   const warrior = new THREE.Group();
   warrior.name = 'lego-warrior-fallback';
 
@@ -81,7 +81,7 @@ function createLegoWarrior() {
   return warrior;
 }
 
-function disposeObject3D(object: THREE.Object3D) {
+function disposeObject3D(object: ThreeNamespace.Object3D, THREE: ThreeRuntime) {
   object.traverse((child) => {
     if (!(child instanceof THREE.Mesh)) return;
     child.geometry.dispose();
@@ -97,72 +97,90 @@ export default function StrengthTrainingPreview() {
     const mount = mountRef.current;
     if (!mount) return undefined;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-    camera.position.set(0, 1.45, 6.2);
+    let disposed = false;
+    let cleanupScene: (() => void) | undefined;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    mount.appendChild(renderer.domElement);
+    const setupScene = async () => {
+      const [THREE, { GLTFLoader }] = await Promise.all([
+        import('three'),
+        import('three/examples/jsm/loaders/GLTFLoader.js'),
+      ]);
+      if (disposed) return;
 
-    const keyLight = new THREE.DirectionalLight('#ffffff', 2.4);
-    keyLight.position.set(4, 5, 6);
-    scene.add(keyLight);
-    scene.add(new THREE.HemisphereLight('#93c5fd', '#111827', 1.8));
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+      camera.position.set(0, 1.45, 6.2);
 
-    const modelRoot = new THREE.Group();
-    scene.add(modelRoot);
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      mount.appendChild(renderer.domElement);
 
-    const fallback = createLegoWarrior();
-    modelRoot.add(fallback);
+      const keyLight = new THREE.DirectionalLight('#ffffff', 2.4);
+      keyLight.position.set(4, 5, 6);
+      scene.add(keyLight);
+      scene.add(new THREE.HemisphereLight('#93c5fd', '#111827', 1.8));
 
-    const loader = new GLTFLoader();
-    loader.load(
-      MODEL_PATH,
-      (gltf) => {
-        modelRoot.clear();
-        disposeObject3D(fallback);
-        const model = gltf.scene;
-        model.name = 'allen-glb-model';
-        model.scale.setScalar(1.45);
-        model.position.y = -0.35;
-        modelRoot.add(model);
-      },
-      undefined,
-      () => {
-        // Keep the LEGO warrior fallback until public/models/allen.glb is available.
-      },
-    );
+      const modelRoot = new THREE.Group();
+      scene.add(modelRoot);
 
-    const resize = () => {
-      const { width, height } = mount.getBoundingClientRect();
-      renderer.setSize(width, height, false);
-      camera.aspect = width / Math.max(height, 1);
-      camera.updateProjectionMatrix();
+      const fallback = createLegoWarrior(THREE);
+      modelRoot.add(fallback);
+
+      const loader = new GLTFLoader();
+      loader.load(
+        MODEL_PATH,
+        (gltf) => {
+          modelRoot.clear();
+          disposeObject3D(fallback, THREE);
+          const model = gltf.scene;
+          model.name = 'allen-glb-model';
+          model.scale.setScalar(1.45);
+          model.position.y = -0.35;
+          modelRoot.add(model);
+        },
+        undefined,
+        () => {
+          // Keep the LEGO warrior fallback until public/models/allen.glb is available.
+        },
+      );
+
+      const resize = () => {
+        const { width, height } = mount.getBoundingClientRect();
+        renderer.setSize(width, height, false);
+        camera.aspect = width / Math.max(height, 1);
+        camera.updateProjectionMatrix();
+      };
+
+      const resizeObserver = new ResizeObserver(resize);
+      resizeObserver.observe(mount);
+      resize();
+
+      let frame = 0;
+      let animationId = 0;
+      const animate = () => {
+        frame += 0.012;
+        modelRoot.rotation.y += 0.01;
+        modelRoot.position.y = Math.sin(frame) * 0.06;
+        renderer.render(scene, camera);
+        animationId = window.requestAnimationFrame(animate);
+      };
+      animate();
+
+      cleanupScene = () => {
+        window.cancelAnimationFrame(animationId);
+        resizeObserver.disconnect();
+        disposeObject3D(modelRoot, THREE);
+        renderer.dispose();
+        renderer.domElement.remove();
+      };
     };
 
-    const resizeObserver = new ResizeObserver(resize);
-    resizeObserver.observe(mount);
-    resize();
-
-    let frame = 0;
-    let animationId = 0;
-    const animate = () => {
-      frame += 0.012;
-      modelRoot.rotation.y += 0.01;
-      modelRoot.position.y = Math.sin(frame) * 0.06;
-      renderer.render(scene, camera);
-      animationId = window.requestAnimationFrame(animate);
-    };
-    animate();
+    void setupScene();
 
     return () => {
-      window.cancelAnimationFrame(animationId);
-      resizeObserver.disconnect();
-      disposeObject3D(modelRoot);
-      renderer.dispose();
-      renderer.domElement.remove();
+      disposed = true;
+      cleanupScene?.();
     };
   }, []);
 
