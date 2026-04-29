@@ -121,8 +121,14 @@ function App() {
       {/* ── Header ── */}
       <header className="app-header">
         <span className="header-icon">🏀</span>
-        <h1 className="header-title">Basketball Tactics</h1>
-        <span className="header-sub">Visualize plays &amp; rotations · drag any player</span>
+        <h1 className="header-title">
+          Basketball Tactics
+          <span className="header-title-zh">籃球戰術板</span>
+        </h1>
+        <span className="header-sub">
+          Visualize plays &amp; rotations · drag any player
+          <span className="header-sub-zh">戰術與輪轉視覺化 · 任何球員都可拖曳</span>
+        </span>
       </header>
 
       {/* ── Main layout ── */}
@@ -138,8 +144,16 @@ function App() {
         <main className="main-content">
           {/* Step info */}
           <div className="step-info">
-            <h2 className="step-title">{step.label}</h2>
+            <h2 className="step-title">
+              {step.label}
+              {step.labelZh && <span className="step-title-zh">{step.labelZh}</span>}
+            </h2>
             <p className="step-desc">{step.description}</p>
+            {step.descriptionZh && (
+              <p className="step-desc step-desc-zh" lang="zh-Hant">
+                {step.descriptionZh}
+              </p>
+            )}
           </div>
 
           {/* Court */}
@@ -158,16 +172,16 @@ function App() {
                   className="ctrl-btn play-btn"
                   onClick={handleResetPositions}
                   disabled={!hasOverridesForStep}
-                  title="Reset all players to the starting layout"
-                  aria-label="Reset positions"
+                  title="Reset all players to the starting layout / 重設所有球員回起始位置"
+                  aria-label="Reset positions / 重設位置"
                 >
                   ↺
                 </button>
               </div>
               <span className="step-label">
                 {hasOverridesForStep
-                  ? 'Custom layout · drag players freely'
-                  : 'Drag any player to begin sketching'}
+                  ? 'Custom layout · drag players freely / 自訂陣型 · 自由拖曳球員'
+                  : 'Drag any player to begin sketching / 拖曳任何球員開始繪製戰術'}
               </span>
             </div>
           ) : (
