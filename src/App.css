@@ -454,47 +454,104 @@
 .player-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 9px;
+  gap: 10px;
 }
 
 .player-grid > :nth-child(5) { grid-column: 1 / -1; }
 
 .player-card {
+  --pcolor: #f97316;
   background: #21262d;
   border: 1px solid #30363d;
-  border-radius: 8px;
-  padding: 9px 12px;
+  border-left: 4px solid var(--pcolor);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.pcard-top {
+.pcard-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 5px;
+  gap: 12px;
 }
 
-.pemoji { font-size: 22px; line-height: 1; }
+.pemoji {
+  font-size: 32px;
+  line-height: 1;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 6px 8px;
+  flex-shrink: 0;
+}
+
+.pcard-title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 
 .pname {
-  display: block;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 800;
-  color: #f97316;
-  line-height: 1.2;
+  color: var(--pcolor);
+  line-height: 1.1;
 }
 
-.pbadge {
-  display: block;
-  font-size: 13px;
+.ppos {
+  font-size: 12px;
   color: #8b949e;
   font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.pstrengths {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.strength-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #c9d1d9;
+  white-space: nowrap;
 }
 
 .pdesc {
-  font-size: 14px;
-  color: #c9d1d9;
-  line-height: 1.5;
+  font-size: 13.5px;
+  color: #8b949e;
+  line-height: 1.55;
   margin: 0;
+}
+
+.pmission {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  color: #c9d1d9;
+  line-height: 1.4;
+  flex-wrap: wrap;
+}
+
+.pmission-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--pcolor);
+  background: rgba(255,255,255,0.07);
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* ── Slide 3: scouting ───────────────────────────────────────────────── */
@@ -848,4 +905,101 @@
   font-size: 14px;
   line-height: 1.7;
   font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Mobile Responsive  (≤ 640px)
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+
+  /* ─ Header ─ */
+  .ppt-bar {
+    height: auto;
+    min-height: 44px;
+    padding: 6px 10px;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .bar-left { font-size: 14px; gap: 5px; }
+  .bar-en   { display: none; }
+  .bar-counter { font-size: 13px; }
+
+  /* ─ Team switch ─ */
+  .team-switch { gap: 4px; order: 3; width: 100%; justify-content: center; }
+  .team-btn { padding: 4px 10px; font-size: 12px; }
+
+  /* ─ Nav arrows ─ */
+  .nav-btn { width: 30px; font-size: 28px; }
+
+  /* ─ Slide head ─ */
+  .slide-head { padding: 9px 12px 7px; gap: 8px; }
+  .slide-num  { font-size: 28px; }
+  .slide-icon { font-size: 16px; }
+  .slide-title { font-size: 16px; }
+  .slide-sub   { font-size: 10px; letter-spacing: 0.5px; }
+  .slide-body  { padding: 10px 12px 12px; }
+
+  /* ─ All grids → single column ─ */
+  .two-col,
+  .player-grid,
+  .scout-grid,
+  .play-grid,
+  .briefing-grid {
+    grid-template-columns: 1fr;
+  }
+  .player-grid > :nth-child(5) { grid-column: auto; }
+
+  /* ─ Section blocks ─ */
+  .sec-head  { font-size: 13px; }
+  .bullets > li { font-size: 13px; }
+  .sub-bullets > li { font-size: 12px; }
+
+  /* ─ Matchup badges ─ */
+  .team-badge { font-size: 11px; padding: 5px 6px; }
+  .vs         { font-size: 12px; }
+
+  /* ─ Principle card ─ */
+  .ptitle  { font-size: 14px; }
+  .pdetail { font-size: 12px; }
+
+  /* ─ Player cards ─ */
+  .pemoji  { font-size: 26px; padding: 5px 7px; }
+  .pname   { font-size: 18px; }
+  .ppos    { font-size: 11px; }
+  .pdesc   { font-size: 12.5px; }
+  .pmission { font-size: 12px; }
+
+  /* ─ Scout cards ─ */
+  .scout-name { font-size: 14px; }
+  .scout-row  { font-size: 12.5px; }
+
+  /* ─ SAFE command ─ */
+  .cmd-say  { font-size: 14px; }
+  .cmd-note { font-size: 12px; }
+
+  /* ─ Flow chart ─ */
+  .flow-chart { gap: 3px; padding: 7px 10px; }
+  .flow-step  { font-size: 12px; padding: 4px 7px; }
+
+  /* ─ Victory cards ─ */
+  .vnum { font-size: 22px; width: 22px; }
+  .victory-card h3 { font-size: 15px; }
+  .victory-card p  { font-size: 12.5px; }
+  .final-motto     { font-size: 13px; padding: 9px 12px; gap: 7px; }
+
+  /* ─ Play cards ─ */
+  .play-name { font-size: 14px; }
+  .play-tag  { font-size: 11px; }
+  .play-goal { font-size: 12.5px; }
+  .play-how  { font-size: 12px; }
+
+  /* ─ Briefing ─ */
+  .briefing-head    { font-size: 14px; }
+  .briefing-card ul { font-size: 12px; }
+  .mentality p      { font-size: 12.5px; }
+
+  /* ─ Footer ─ */
+  .ppt-footer { height: 40px; gap: 8px; }
+  .kbd-hint   { display: none; }
+  .dot        { width: 7px; height: 7px; }
 }

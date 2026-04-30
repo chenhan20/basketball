@@ -509,26 +509,68 @@ function S1({ m }: { m: MatchupData }) {
 
 /* ─── Slide 2: 我方陣容（共用）─── */
 const PLAYERS = [
-  { name: 'Steve', emoji: '🎯', badge: '神射手 / 防守保險絲', desc: '三分外線主要開火點，與 Neil 輪流執行 SAFE 退防任務' },
-  { name: 'Neil',  emoji: '🔒', badge: '防守大鎖 / SAFE 指揮官', desc: '專職釘死敵方快攻路線，喊出退防指令，半場陣地戰伺機空切' },
-  { name: 'Kai',   emoji: '💥', badge: '破壞者 / 第一箭頭', desc: '禁區高度優勢，抓籃板發動快攻的第一選項，半場主打突破與爛仗' },
-  { name: 'Ken',   emoji: '🛡️', badge: '禁區肉盾 / 掩護專家', desc: '以身材優勢卡住敵方禁區位置，進攻端設立無球掩護讓隊友脫身' },
-  { name: 'Tony',  emoji: '🎪', badge: '中距離刺客', desc: '拉開禁區空間，蹲守底線或中距離熱點，有空檔就果斷出手' },
+  {
+    name: 'Steve', emoji: '🎯',
+    pos: '後衛 · 外線射手',
+    color: '#f97316',
+    strengths: ['三分外線', 'SAFE 輪值', '冷靜出手'],
+    desc: '全隊最穩定的外線開火點。只要隊友把防守吸引進去，Steve 接球就投，不猶豫、不等待。',
+    mission: '外線點火，弧頂 SAFE 輪值',
+  },
+  {
+    name: 'Neil', emoji: '🔒',
+    pos: '後衛 · 防守引擎',
+    color: '#3b82f6',
+    strengths: ['退防速度', '防守溝通', '切入空切'],
+    desc: '全隊防守的大腦，負責喊出退防指令、確認 SAFE 輪值。對手想發動快攻，第一個擋在路上的人就是他。',
+    mission: 'SAFE 指揮，封鎖快攻發動者',
+  },
+  {
+    name: 'Kai', emoji: '💥',
+    pos: '前鋒 · 攻擊核心',
+    color: '#a855f7',
+    strengths: ['禁區突破', '籃板發動', '快攻箭頭'],
+    desc: '最有破壞力的進攻威脅。抓到板就往前推，半場陣地戰負責突破禁區，讓防守收縮，隊友才有空檔。',
+    mission: '搶板即推快攻，半場強攻破局',
+  },
+  {
+    name: 'Ken', emoji: '🛡️',
+    pos: '中鋒 · 功能核心',
+    color: '#22c55e',
+    strengths: ['無球掩護', '卡位頂住', '禁區屯兵'],
+    desc: '全場最重要的無球功能型球員。進攻端設掩護讓隊友脫身，防守端用身材封住禁區，讓對手接不到好球。',
+    mission: '掩護開空間，禁區頂住扯人',
+  },
+  {
+    name: 'Tony', emoji: '🎪',
+    pos: '前鋒 · 空間刺客',
+    color: '#facc15',
+    strengths: ['底角三分', '中距離', '空間拉扯'],
+    desc: '把防守者吸引出禁區，讓 Kai 有切入空間。蹲守底角或 45 度熱點，有空檔就立刻果斷出手。',
+    mission: '拉開禁區，底線空檔終結',
+  },
 ];
 function S2() {
   return (
     <SlideLayout num={2} title="我方陣容與任務分配" sub="Orange Team Roles" icon="🧡">
       <div className="player-grid">
         {PLAYERS.map(p => (
-          <div key={p.name} className="player-card">
-            <div className="pcard-top">
+          <div key={p.name} className="player-card" style={{ '--pcolor': p.color } as React.CSSProperties}>
+            <div className="pcard-header">
               <span className="pemoji">{p.emoji}</span>
-              <div>
+              <div className="pcard-title">
                 <span className="pname">{p.name}</span>
-                <span className="pbadge">{p.badge}</span>
+                <span className="ppos">{p.pos}</span>
               </div>
             </div>
+            <div className="pstrengths">
+              {p.strengths.map(s => <span key={s} className="strength-pill">{s}</span>)}
+            </div>
             <p className="pdesc">{p.desc}</p>
+            <div className="pmission">
+              <span className="pmission-label">⚡ 本場任務</span>
+              {p.mission}
+            </div>
           </div>
         ))}
       </div>
