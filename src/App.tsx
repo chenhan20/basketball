@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import './App.css';
+import AllInOnePage from './components/AllInOnePage';
 
 const TOTAL = 10;
 
@@ -279,7 +280,7 @@ const RED_MATCHUP: MatchupData = {
   theirBadge: '紅隊\n內外雙修 · 菁英軍',
   ourAdvantages: ['團隊紀律佳，輪轉到位', '外線群仍有空間優勢', '對位中可以打點他們最弱的 Jason'],
   theirAdvantages: ['Light（190cm/90kg）頂級中鋒', 'Darren 二波籃板機器', 'Jason 底角射手命中率 60%'],
-  fatalWeakness: ['Jason 身材劣勢（167cm/65kg）', 'Darren 打法單調 — 上中跳投自搶'],
+  fatalWeakness: ['Jason 身材劣勢（173cm/65kg）', 'Darren 打法單調 — 上中跳投自搶'],
   defensePrincipleTitle: '「包夾 Light · 貼死 Jason · 卡死 Darren」',
   defensePrincipleDetail: 'Light 必夾擊；Jason 永遠貼身不離；Darren 出手全隊找人卡位',
   offensePrincipleTitle: '「點打 Jason · 拖陷阱 Darren」',
@@ -287,7 +288,7 @@ const RED_MATCHUP: MatchupData = {
   opponents: [
     { name: 'Light', emoji: '🏔️', threat: '190cm/90kg 頂級中鋒・低位無解', strategy: '單防守不住！繞前防守 + 接球瞬間包夾，逼他出球' },
     { name: 'Darren', emoji: '🦘', threat: '體能怪獸・上中跳投自搶二波', strategy: '他出手 = 全隊立刻 box-out！製造他「衝搶撞牆」' },
-    { name: 'Jason', emoji: '🎯', threat: '167cm 底角射手・命中率 60%', strategy: '是 2-3 區域的破壞者！底線球員必須隨時貼身照顧' },
+    { name: 'Jason', emoji: '🎯', threat: '173cm 底角射手・命中率 60%', strategy: '是 2-3 區域的破壞者！底線球員必須隨時貼身照顧' },
     { name: '其他輪替球員', emoji: '🧩', threat: '能補位但沒有單點爆發', strategy: '不主動關注，集中火力對付三大威脅即可' },
   ],
   victoryKeys: [
@@ -321,7 +322,7 @@ const RED_MATCHUP: MatchupData = {
   ],
 
   briefingDefense: [
-    '底線絕對不漏 Jason（167cm 底線射手）— 永遠保持貼身',
+    '底線絕對不漏 Jason（173cm 底線射手）— 永遠保持貼身',
     'Darren 在罰球線投籃時，所有人不要看球！轉身找人卡位 — 他一定會自己衝搶',
     'Light 拿球，Kai 繞前干擾，旁邊的人立刻上去包夾，逼他把球傳出去',
   ],
@@ -341,19 +342,21 @@ const MATCHUPS: MatchupData[] = [MAIN_MATCHUP, YELLOW_MATCHUP, BLUE_MATCHUP, RED
 export default function App() {
   const [matchupId, setMatchupId] = useState<string>(MAIN_MATCHUP.id);
   const [idx, setIdx] = useState(0);
+  const [allInOne, setAllInOne] = useState(false);
   const m = MATCHUPS.find(t => t.id === matchupId) ?? MAIN_MATCHUP;
 
   const next = useCallback(() => setIdx(i => Math.min(i + 1, TOTAL - 1)), []);
   const prev = useCallback(() => setIdx(i => Math.max(i - 1, 0)), []);
 
   useEffect(() => {
+    if (allInOne) return;
     const h = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); next(); }
       else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
     };
     window.addEventListener('keydown', h);
     return () => window.removeEventListener('keydown', h);
-  }, [next, prev]);
+  }, [next, prev, allInOne]);
 
   const slides = [
     <S1 m={m} />,
@@ -390,25 +393,36 @@ export default function App() {
           ))}
         </div>
 
-        <span className="bar-counter">{idx + 1}&nbsp;/&nbsp;{TOTAL}</span>
+        <button className="allinone-toggle" onClick={() => setAllInOne(v => !v)}>
+          {allInOne ? '切換分頁模式' : '單頁長捲動'}
+        </button>
+        {!allInOne && <span className="bar-counter">{idx + 1}&nbsp;/&nbsp;{TOTAL}</span>}
       </header>
 
       <main className="ppt-stage">
-        <button className="nav-btn" onClick={prev} disabled={idx === 0} aria-label="上一頁">&#8249;</button>
-        <div className="slide-viewport">
-          <div className="slide-wrap" key={`${matchupId}-${idx}`}>{slides[idx]}</div>
-        </div>
-        <button className="nav-btn" onClick={next} disabled={idx === TOTAL - 1} aria-label="下一頁">&#8250;</button>
+        {allInOne ? (
+          <AllInOnePage m={m} />
+        ) : (
+          <>
+            <button className="nav-btn" onClick={prev} disabled={idx === 0} aria-label="上一頁">&#8249;</button>
+            <div className="slide-viewport">
+              <div className="slide-wrap" key={`${matchupId}-${idx}`}>{slides[idx]}</div>
+            </div>
+            <button className="nav-btn" onClick={next} disabled={idx === TOTAL - 1} aria-label="下一頁">&#8250;</button>
+          </>
+        )}
       </main>
 
-      <footer className="ppt-footer">
-        <div className="dot-row">
-          {Array.from({ length: TOTAL }, (_, i) => (
-            <button key={i} className={`dot${i === idx ? ' on' : ''}`} onClick={() => setIdx(i)} aria-label={`第 ${i + 1} 頁`} />
-          ))}
-        </div>
-        <span className="kbd-hint">← → 鍵盤換頁　·　頂部按鈕切換對位特化</span>
-      </footer>
+      {!allInOne && (
+        <footer className="ppt-footer">
+          <div className="dot-row">
+            {Array.from({ length: TOTAL }, (_, i) => (
+              <button key={i} className={`dot${i === idx ? ' on' : ''}`} onClick={() => setIdx(i)} aria-label={`第 ${i + 1} 頁`} />
+            ))}
+          </div>
+          <span className="kbd-hint">← → 鍵盤換頁　·　頂部按鈕切換對位特化</span>
+        </footer>
+      )}
     </div>
   );
 }
@@ -460,7 +474,7 @@ function Bullets({ items }: { items: BulletItem[] }) {
 }
 
 /* ─── Slide 1: Game Overview（依對位切換）─── */
-function S1({ m }: { m: MatchupData }) {
+export function S1({ m }: { m: MatchupData }) {
   const isMain = m.id === 'main';
   return (
     <SlideLayout
@@ -550,7 +564,7 @@ const PLAYERS = [
     mission: '拉開禁區，底線空檔終結',
   },
 ];
-function S2() {
+export function S2() {
   return (
     <SlideLayout num={2} title="我方陣容與任務分配" sub="Orange Team Roles" icon="🧡">
       <div className="player-grid">
@@ -579,7 +593,7 @@ function S2() {
 }
 
 /* ─── Slide 3: Scouting（依對位切換）─── */
-function S3({ m }: { m: MatchupData }) {
+export function S3({ m }: { m: MatchupData }) {
   const isMain = m.id === 'main';
   return (
     <SlideLayout
@@ -605,7 +619,7 @@ function S3({ m }: { m: MatchupData }) {
 }
 
 /* ─── Slide 4: 2-3 Zone Defense（共用）─── */
-function S4() {
+export function S4() {
   return (
     <SlideLayout num={4} title="防守鐵則 ─ 2-3 區域聯防" sub="The 2-3 Zone Defense" icon="🛡️">
       <div className="two-col">
@@ -633,7 +647,7 @@ function S4() {
 }
 
 /* ─── Slide 5: SAFE Protocol（共用）─── */
-function S5() {
+export function S5() {
   return (
     <SlideLayout num={5} title="防守鐵則 ─ SAFE 退防機制（全場通用）" sub="The SAFE Protocol · Anti Fast-Break" icon="🔐">
       <div className="two-col">
@@ -661,7 +675,7 @@ function S5() {
 }
 
 /* ─── Slide 6: Fast Break（共用）─── */
-function S6() {
+export function S6() {
   return (
     <SlideLayout num={6} title="進攻戰術 A ─ 閃電三箭頭（全場通用）" sub="Triple Arrow Fast Break" icon="⚡">
       <div className="two-col">
@@ -693,7 +707,7 @@ function S6() {
 }
 
 /* ─── Slide 7: Corner Trap（共用）─── */
-function S7() {
+export function S7() {
   return (
     <SlideLayout num={7} title="進攻戰術 B ─ 底角陷阱與空間拉扯（全場通用）" sub="Corner Trap & Space Creation" icon="🪤">
       <div className="two-col">
@@ -726,7 +740,7 @@ function S7() {
 }
 
 /* ─── Slide 8: Keys to Victory（依對位切換）─── */
-function S8({ m }: { m: MatchupData }) {
+export function S8({ m }: { m: MatchupData }) {
   return (
     <SlideLayout num={8} title="終極致勝密碼" sub={`Keys to Victory · ${m.fullName}`} icon="🏆">
       <div className="victory-grid">
@@ -750,7 +764,7 @@ function S8({ m }: { m: MatchupData }) {
 }
 
 /* ─── Slide 9: 對位特化戰術（依對位切換）─── */
-function S9({ m }: { m: MatchupData }) {
+export function S9({ m }: { m: MatchupData }) {
   return (
     <SlideLayout num={9} title={`對位特化戰術：${m.shortName}`} sub={`Specialized Plays · ${m.fullName}`} icon="🧠">
       <div className="play-grid">
@@ -772,7 +786,7 @@ function S9({ m }: { m: MatchupData }) {
 }
 
 /* ─── Slide 10: 賽前 Briefing 卡（依對位切換）─── */
-function S10({ m }: { m: MatchupData }) {
+export function S10({ m }: { m: MatchupData }) {
   return (
     <SlideLayout num={10} title="賽前 5 分鐘 Briefing" sub={`Pre-Game Briefing · ${m.fullName}`} icon="📣">
       <div className="briefing-grid">
