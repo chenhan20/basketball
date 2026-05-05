@@ -12,7 +12,7 @@ type Opponent = { name: string; emoji: string; threat: string; strategy: string 
 type VictoryKey = { title: string; detail: string };
 type Play = { name: string; tag: string; goal: string; how: string[] };
 
-type MatchupData = {
+export type MatchupData = {
   id: string;
   shortName: string;
   fullName: string;

@@ -1,4 +1,3 @@
-import React from 'react';
 import type { MatchupData } from '../App';
 
 // 直接複用 App.tsx 內部 slide 元件
