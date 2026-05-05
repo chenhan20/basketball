@@ -280,7 +280,7 @@ const RED_MATCHUP: MatchupData = {
   theirBadge: '紅隊\n內外雙修 · 菁英軍',
   ourAdvantages: ['團隊紀律佳，輪轉到位', '外線群仍有空間優勢', '對位中可以打點他們最弱的 Jason'],
   theirAdvantages: ['Light（190cm/90kg）頂級中鋒', 'Darren 二波籃板機器', 'Jason 底角射手命中率 60%'],
-  fatalWeakness: ['Jason 身材劣勢（173cm/65kg）', 'Darren 打法單調 — 上中跳投自搶'],
+  fatalWeakness: ['Jason 身材劣勢（171.3cm/65kg）', 'Darren 打法單調 — 上中跳投自搶'],
   defensePrincipleTitle: '「包夾 Light · 貼死 Jason · 卡死 Darren」',
   defensePrincipleDetail: 'Light 必夾擊；Jason 永遠貼身不離；Darren 出手全隊找人卡位',
   offensePrincipleTitle: '「點打 Jason · 拖陷阱 Darren」',
@@ -288,7 +288,7 @@ const RED_MATCHUP: MatchupData = {
   opponents: [
     { name: 'Light', emoji: '🏔️', threat: '190cm/90kg 頂級中鋒・低位無解', strategy: '單防守不住！繞前防守 + 接球瞬間包夾，逼他出球' },
     { name: 'Darren', emoji: '🦘', threat: '體能怪獸・上中跳投自搶二波', strategy: '他出手 = 全隊立刻 box-out！製造他「衝搶撞牆」' },
-    { name: 'Jason', emoji: '🎯', threat: '173cm 底角射手・命中率 60%', strategy: '是 2-3 區域的破壞者！底線球員必須隨時貼身照顧' },
+    { name: 'Jason', emoji: '🎯', threat: '171.3cm 底角射手・命中率 60%', strategy: '是 2-3 區域的破壞者！底線球員必須隨時貼身照顧' },
     { name: '其他輪替球員', emoji: '🧩', threat: '能補位但沒有單點爆發', strategy: '不主動關注，集中火力對付三大威脅即可' },
   ],
   victoryKeys: [
@@ -322,7 +322,7 @@ const RED_MATCHUP: MatchupData = {
   ],
 
   briefingDefense: [
-    '底線絕對不漏 Jason（173cm 底線射手）— 永遠保持貼身',
+    '底線絕對不漏 Jason（171.3cm 底線射手）— 永遠保持貼身',
     'Darren 在罰球線投籃時，所有人不要看球！轉身找人卡位 — 他一定會自己衝搶',
     'Light 拿球，Kai 繞前干擾，旁邊的人立刻上去包夾，逼他把球傳出去',
   ],
