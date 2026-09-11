@@ -232,7 +232,7 @@ export default function Court3D({ step, previousStep }: Court3DProps) {
     if (ballHolder && (!prevHolder || prevHolder.id === ballHolder.id)) {
       // Ball held statically
       const p3d = to3D(ballHolder.x, ballHolder.y);
-      ballMeshRef.current.position.set(p3d.x + 0.35, 1.25, p3d.z - 0.2);
+      ballMeshRef.current.position.set(p3d.x + 0.35, 1.05, p3d.z - 0.2);
       if (trajectoryLineRef.current) trajectoryLineRef.current.visible = false;
       return;
     }
@@ -261,18 +261,18 @@ export default function Court3D({ step, previousStep }: Court3DProps) {
           const subT = t / 0.6;
           curX = from3d.x + (bounce3d.x - from3d.x) * subT;
           curZ = from3d.z + (bounce3d.z - from3d.z) * subT;
-          curY = 1.35 * (1 - subT) + 0.22 * subT - Math.sin(subT * Math.PI) * 0.2;
+          curY = 1.05 * (1 - subT) + 0.22 * subT - Math.sin(subT * Math.PI) * 0.15;
         } else {
           // Phase 2: From ground bounce point to target hand
           const subT = (t - 0.6) / 0.4;
           curX = bounce3d.x + (to3d.x - bounce3d.x) * subT;
           curZ = bounce3d.z + (to3d.z - bounce3d.z) * subT;
-          curY = 0.22 * (1 - subT) + 1.2 * subT + Math.sin(subT * Math.PI) * 0.35;
+          curY = 0.22 * (1 - subT) + 1.05 * subT + Math.sin(subT * Math.PI) * 0.35;
         }
       } else if (isLob) {
-        curY = 1.35 + Math.sin(t * Math.PI) * 2.3;
+        curY = 1.05 + Math.sin(t * Math.PI) * 2.2;
       } else {
-        curY = 1.35 + Math.sin(t * Math.PI) * 0.35;
+        curY = 1.05 + Math.sin(t * Math.PI) * 0.35;
       }
 
       ballMeshRef.current.position.set(curX, curY, curZ);
@@ -501,103 +501,88 @@ export default function Court3D({ step, previousStep }: Court3DProps) {
       const playerContainer = new THREE.Group();
       playerContainer.position.set(p3d.x, 0, p3d.z);
 
-      // Contact Shadow Decal
-      const shadowGeo = new THREE.CircleGeometry(0.75, 20);
-      const shadowMat = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.45 });
+      // ── Sleek Modern Tactical Token (Puck Base + Avatar Head) ───────────
+      // 1. Drop Contact Shadow
+      const shadowGeo = new THREE.CircleGeometry(0.8, 24);
+      const shadowMat = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.5 });
       const shadow = new THREE.Mesh(shadowGeo, shadowMat);
       shadow.rotation.x = -Math.PI / 2;
       shadow.position.y = 0.02;
       playerContainer.add(shadow);
 
-      // Stance / Orientation Footplate
-      const plateGeo = new THREE.RingGeometry(0.55, 0.72, 24);
-      const plateMat = new THREE.MeshBasicMaterial({
-        color: isOffense ? 0xf97316 : 0xef4444,
-        side: THREE.DoubleSide,
-      });
-      const plate = new THREE.Mesh(plateGeo, plateMat);
-      plate.rotation.x = -Math.PI / 2;
-      plate.position.y = 0.03;
-      playerContainer.add(plate);
-
-      // Stylized Sleek Torso
-      const torsoGeo = new THREE.CylinderGeometry(0.38, 0.45, 1.35, 20);
-      const torsoMat = new THREE.MeshStandardMaterial({
+      // 2. Beveled Token Base (Puck)
+      const baseGeo = new THREE.CylinderGeometry(0.72, 0.82, 0.28, 32);
+      const baseMat = new THREE.MeshStandardMaterial({
         color: isOffense ? 0xea580c : 0x1e293b,
-        roughness: 0.35,
-        metalness: 0.15,
+        roughness: 0.25,
+        metalness: 0.3,
       });
-      const torso = new THREE.Mesh(torsoGeo, torsoMat);
-      torso.castShadow = true;
-      torso.position.y = 0.85;
-      playerContainer.add(torso);
+      const baseMesh = new THREE.Mesh(baseGeo, baseMat);
+      baseMesh.position.y = 0.14;
+      baseMesh.castShadow = true;
+      playerContainer.add(baseMesh);
 
-      // Head Sphere
-      const headGeo = new THREE.SphereGeometry(0.3, 16, 16);
+      // 3. Metallic Accent Ring
+      const ringGeo = new THREE.TorusGeometry(0.76, 0.04, 12, 32);
+      const ringMat = new THREE.MeshStandardMaterial({
+        color: isOffense ? 0xfba347 : 0xef4444,
+        metalness: 0.6,
+        roughness: 0.2,
+      });
+      const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+      ringMesh.rotation.x = Math.PI / 2;
+      ringMesh.position.y = 0.28;
+      playerContainer.add(ringMesh);
+
+      // 4. Directional Orientation Pointer (Facing Arrow)
+      const arrowGeo = new THREE.ConeGeometry(0.18, 0.3, 3);
+      const arrowMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const arrowMesh = new THREE.Mesh(arrowGeo, arrowMat);
+      arrowMesh.rotation.x = Math.PI / 2;
+      arrowMesh.position.set(0, 0.3, 0.62);
+      playerContainer.add(arrowMesh);
+
+      // 5. Clean Floating Avatar Head Sphere
+      const headGeo = new THREE.SphereGeometry(0.44, 24, 24);
       const headMat = new THREE.MeshStandardMaterial({
         color: isOffense ? 0xfcd34d : 0x94a3b8,
-        roughness: 0.4,
+        roughness: 0.3,
+        metalness: 0.15,
       });
       const head = new THREE.Mesh(headGeo, headMat);
       head.castShadow = true;
-      head.position.y = 1.7;
+      head.position.y = 0.95;
       playerContainer.add(head);
 
-      // Floating Position Label Sprite
+      // 6. Floating Position Label Badge
       const sprite = createTextSprite(
         p.position,
         isOffense ? '#ea580c' : '#dc2626',
         '#ffffff'
       );
-      sprite.position.set(0, 2.35, 0);
+      sprite.position.set(0, 1.85, 0);
       playerContainer.add(sprite);
 
-      // ── ARTICULATED TARGET HAND (for C) ───────────────────────────────────
+      // ── Clean Holographic Target Reticle (No awkward arms) ───────────────
       if (p.position === 'C' && step.targetHand) {
         const hand3d = to3D(step.targetHand.x, step.targetHand.y);
-        const relX = hand3d.x - p3d.x;
-        const relZ = hand3d.z - p3d.z;
 
-        // Arm reaching out
-        const armLength = Math.hypot(relX, relZ);
-        const armGeo = new THREE.CylinderGeometry(0.08, 0.08, armLength, 8);
-        const armMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, emissive: 0x0284c7, emissiveIntensity: 0.4 });
-        const arm = new THREE.Mesh(armGeo, armMat);
-        arm.position.set(relX / 2, 1.25, relZ / 2);
-        arm.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(relX, 0, relZ).normalize());
-        playerContainer.add(arm);
-
-        // Glowing Target Hand Holographic Reticle
         const reticleGroup = new THREE.Group();
         reticleGroup.name = 'targetReticle';
-        reticleGroup.position.set(hand3d.x, 1.25, hand3d.z);
+        reticleGroup.position.set(hand3d.x, 0.85, hand3d.z);
 
-        const handSphereGeo = new THREE.SphereGeometry(0.2, 16, 16);
+        const handSphereGeo = new THREE.SphereGeometry(0.22, 16, 16);
         const handSphereMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
         const handSphere = new THREE.Mesh(handSphereGeo, handSphereMat);
         reticleGroup.add(handSphere);
 
-        const ringGeo = new THREE.RingGeometry(0.3, 0.4, 24);
-        const ringMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, side: THREE.DoubleSide });
-        const ring = new THREE.Mesh(ringGeo, ringMat);
-        ring.rotation.x = Math.PI / 2;
-        reticleGroup.add(ring);
+        const ringGeo2 = new THREE.RingGeometry(0.35, 0.48, 24);
+        const ringMat2 = new THREE.MeshBasicMaterial({ color: 0x38bdf8, side: THREE.DoubleSide });
+        const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+        ring2.rotation.x = Math.PI / 2;
+        reticleGroup.add(ring2);
 
         annotations.add(reticleGroup);
-      }
-
-      // ── DEFENDER CONTEST ZONE (Holographic Shield) ────────────────────────
-      if (!isOffense && (p.position === 'C' || p.position === 'SF')) {
-        const contestGeo = new THREE.CylinderGeometry(0.85, 0.85, 2.2, 24, 1, true);
-        const contestMat = new THREE.MeshBasicMaterial({
-          color: 0xef4444,
-          transparent: true,
-          opacity: 0.16,
-          side: THREE.DoubleSide,
-        });
-        const contestDome = new THREE.Mesh(contestGeo, contestMat);
-        contestDome.position.y = 1.1;
-        playerContainer.add(contestDome);
       }
 
       group.add(playerContainer);
