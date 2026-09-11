@@ -1,26 +1,24 @@
-# React + TypeScript + Vite
+# HOOPS LAB · 籃球技術分享與戰術學院 🏀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 專門針對「側翼如何餵球給中鋒 (Post Entry Pass)」與「中鋒如何卡位要球 (Post Seal & Target Hand)」的高階實戰教學庫。具備純靜態 GitHub Pages 支援與 SVG 互動動態推演。
 
-## 部署到 GitHub Pages
+## 🎯 核心技術單元
+
+1. **🏀 互動戰術動態模擬板 (Interactive Tactics Board)**：5 套即時動態 SVG 戰術推演（標準 45 度擊地、3/4 繞前破解、全繞前高低位、勇士 Split Cut、破包夾 Inside-Out）。
+2. **📖 動作細節與物理槓桿 (Mechanics Breakdown)**：傳球者視角（角度、2/3 擊地、Fake to Pass、Pass Away）與中鋒視角（提早卡位、下盤鎖腳、前臂牆、目標手、下巴護球）。
+3. **⚡ 5v5 團隊戰術體系 (5v5 Team Offense)**：金州勇士 Split Cut 剪刀戰術、古典高低位連線 (High-Low)、內外傳導 (Inside-Out) 與空間幾何鐵律。
+4. **🎥 精選影音教學庫 (Curated Video Hub)**：整理 SportsEdTV、ATTACKBball、Shot Science、Thinking Basketball / Hakeem Olajuwon 等權威名師教學，支援頁面內嵌播放與一鍵直連 YouTube。
+5. **🏋️ 科學化特訓課表 (Drill Station)**：雙人椅子卡位練習、2v2 繞前防守判讀、3人剪刀走位、破包夾三分轟炸，配備互動完成追蹤。
+6. **🧠 實戰智商測驗 (Tactical IQ Quiz)**：4 道實戰低位難題即時測驗與解析。
+
+## 🚀 部署到 GitHub Pages
 
 本專案已設定好 GitHub Actions 工作流程（`.github/workflows/deploy.yml`），會在每次 push 到 `main` 分支時自動 build 並部署到 GitHub Pages。
 
-啟用步驟（只需做一次）：
+- 本機開發：`npm run dev`
+- 本機建置：`npm run build`
+- 預覽建置：`npm run preview`
 
-1. 到 GitHub repository 的 **Settings → Pages**。
-2. 在 **Build and deployment** 的 **Source** 選擇 **GitHub Actions**。
-3. push 一個 commit 到 `main`（或在 Actions 頁面手動觸發 `Deploy to GitHub Pages`）。
-4. 部署完成後，網站會出現在 `https://<your-username>.github.io/basketball/`。
-
-> 註：`vite.config.ts` 中已設定 `base: '/basketball/'`，對應 repo 名稱 `basketball`。若之後改 repo 名稱，請同步更新此設定。
-
-本機 build 預覽：
-
-```bash
-npm run build
-npm run preview
-```
 
 Currently, two official plugins are available:
 

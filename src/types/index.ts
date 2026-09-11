@@ -37,6 +37,12 @@ export interface PlayStep {
   players: PlayerState[];
   movements?: Movement[];
   passes?: Pass[];
+  /** Optional tactical annotations on court */
+  targetHand?: { x: number; y: number; label?: string };
+  bouncePoint?: { x: number; y: number; label?: string };
+  sealPoint?: { x: number; y: number; label?: string };
+  keyNoteZh?: string;
+  tacticalAlert?: string;
 }
 
 export interface Play {

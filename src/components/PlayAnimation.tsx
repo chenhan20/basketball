@@ -176,6 +176,50 @@ export default function PlayAnimation({
             <path d={`M ${-BALL_R} 0 Q 0 ${BALL_R * 0.42} ${BALL_R} 0`} fill="none" stroke="#7a2200" strokeWidth={1} />
           </g>
         )}
+
+        {/* Tactical Annotations: Target Hand Radar Pulse */}
+        {step.targetHand && (
+          <g className="tactical-annotation target-hand-marker" transform={`translate(${step.targetHand.x}, ${step.targetHand.y})`}>
+            <circle r={24} fill="none" stroke="#38bdf8" strokeWidth={1.5} opacity={0.4} className="radar-wave" />
+            <circle r={16} fill="none" stroke="#38bdf8" strokeWidth={2} opacity={0.7} className="radar-wave-inner" />
+            <circle r={7} fill="#0284c7" stroke="#38bdf8" strokeWidth={2} />
+            <line x1={-12} y1={0} x2={12} y2={0} stroke="#38bdf8" strokeWidth={1.5} />
+            <line x1={0} y1={-12} x2={0} y2={12} stroke="#38bdf8" strokeWidth={1.5} />
+            {step.targetHand.label && (
+              <g transform="translate(0, -28)">
+                <rect x={-60} y={-10} width={120} height={20} rx={10} fill="#0f172a" stroke="#38bdf8" strokeWidth={1.5} opacity={0.95} />
+                <text x={0} y={4} fill="#38bdf8" fontSize={9.5} fontWeight={700} textAnchor="middle">{step.targetHand.label}</text>
+              </g>
+            )}
+          </g>
+        )}
+
+        {/* Tactical Annotations: Bounce Point */}
+        {step.bouncePoint && (
+          <g className="tactical-annotation bounce-point-marker" transform={`translate(${step.bouncePoint.x}, ${step.bouncePoint.y})`}>
+            <ellipse rx={20} ry={11} fill="none" stroke="#f59e0b" strokeWidth={2} strokeDasharray="4 3" className="bounce-ripple" />
+            <ellipse rx={8} ry={5} fill="#f59e0b" opacity={0.85} />
+            {step.bouncePoint.label && (
+              <g transform="translate(0, -18)">
+                <rect x={-52} y={-10} width={104} height={20} rx={10} fill="#0f172a" stroke="#f59e0b" strokeWidth={1.5} opacity={0.95} />
+                <text x={0} y={4} fill="#fbbf24" fontSize={9.5} fontWeight={700} textAnchor="middle">{step.bouncePoint.label}</text>
+              </g>
+            )}
+          </g>
+        )}
+
+        {/* Tactical Annotations: Seal Point */}
+        {step.sealPoint && (
+          <g className="tactical-annotation seal-point-marker" transform={`translate(${step.sealPoint.x}, ${step.sealPoint.y})`}>
+            <circle r={14} fill="#dc2626" fillOpacity={0.25} stroke="#ef4444" strokeWidth={2} strokeDasharray="3 3" />
+            {step.sealPoint.label && (
+              <g transform="translate(0, 24)">
+                <rect x={-60} y={-10} width={120} height={20} rx={10} fill="#0f172a" stroke="#ef4444" strokeWidth={1.5} opacity={0.95} />
+                <text x={0} y={4} fill="#f87171" fontSize={9.5} fontWeight={700} textAnchor="middle">{step.sealPoint.label}</text>
+              </g>
+            )}
+          </g>
+        )}
       </svg>
     </div>
   );
