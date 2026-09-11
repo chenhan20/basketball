@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import './App.css';
 import PostTacticsBoard from './components/PostTacticsBoard';
+import Shooter173Guide from './components/Shooter173Guide';
 import PostMechanicsGuide from './components/PostMechanicsGuide';
 import PostOffense5v5 from './components/PostOffense5v5';
 import VideoLibrary from './components/VideoLibrary';
 import DrillStation from './components/DrillStation';
 import PostQuiz from './components/PostQuiz';
 
-type ActiveTab = 'tactics' | 'mechanics' | 'offense' | 'videos' | 'drills' | 'quiz';
+type ActiveTab = 'tactics' | 'shooter173' | 'mechanics' | 'offense' | 'videos' | 'drills' | 'quiz';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('tactics');
@@ -20,7 +21,7 @@ export default function App() {
           <div className="brand-logo-icon">🏀</div>
           <div className="brand-text-block">
             <h1 className="brand-title">HOOPS LAB · 籃球技術分享庫</h1>
-            <span className="brand-subtitle">低位餵球 (Post Feed) × 中鋒卡位要球 (Post Seal) 完全指南</span>
+            <span className="brand-subtitle">低位餵球 (Post Feed) × 173cm 射手 45° 無球跑位完全指南</span>
           </div>
         </div>
 
@@ -35,11 +36,19 @@ export default function App() {
           </button>
 
           <button
+            className={`nav-tab-link ${activeTab === 'shooter173' ? 'active' : ''}`}
+            onClick={() => setActiveTab('shooter173')}
+          >
+            <span className="tab-link-icon">🎯</span>
+            <span>173cm 射手專區</span>
+          </button>
+
+          <button
             className={`nav-tab-link ${activeTab === 'mechanics' ? 'active' : ''}`}
             onClick={() => setActiveTab('mechanics')}
           >
             <span className="tab-link-icon">📖</span>
-            <span>動作細節拆解</span>
+            <span>低位動作拆解</span>
           </button>
 
           <button
@@ -116,6 +125,7 @@ export default function App() {
       {/* ── Main Dynamic Tab Content ────────────────────────────────────────── */}
       <main className="main-content-area">
         {activeTab === 'tactics' && <PostTacticsBoard />}
+        {activeTab === 'shooter173' && <Shooter173Guide />}
         {activeTab === 'mechanics' && <PostMechanicsGuide />}
         {activeTab === 'offense' && <PostOffense5v5 />}
         {activeTab === 'videos' && <VideoLibrary />}

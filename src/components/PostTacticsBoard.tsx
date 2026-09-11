@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Play } from '../types';
 import { POST_PLAYS } from '../data/postPlays';
+import { SHOOTER_PLAYS } from '../data/shooterPlays';
 import PlayAnimation from './PlayAnimation';
 import Court3D from './Court3D';
 
 export default function PostTacticsBoard() {
+  const [playCategory, setPlayCategory] = useState<'post' | 'shooter'>('post');
   const [selectedPlayId, setSelectedPlayId] = useState<string>(POST_PLAYS[0].id);
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -12,7 +14,8 @@ export default function PostTacticsBoard() {
   const [viewDimension, setViewDimension] = useState<'3d' | '2d'>('3d');
   const timerRef = useRef<number | null>(null);
 
-  const activePlay: Play = POST_PLAYS.find((p) => p.id === selectedPlayId) || POST_PLAYS[0];
+  const currentPlayList = playCategory === 'post' ? POST_PLAYS : SHOOTER_PLAYS;
+  const activePlay: Play = currentPlayList.find((p) => p.id === selectedPlayId) || currentPlayList[0];
   const totalSteps = activePlay.steps.length;
   const currentStep = activePlay.steps[currentStepIndex];
   const previousStep = currentStepIndex > 0 ? activePlay.steps[currentStepIndex - 1] : undefined;
@@ -72,15 +75,46 @@ export default function PostTacticsBoard() {
       <div className="tactics-header-block">
         <div className="tactics-title-wrap">
           <span className="section-pill">🏀 互動戰術板 Interactive Board</span>
-          <h2 className="tactics-heading">低位傳接動態推演模擬器</h2>
+          <h2 className="tactics-heading">
+            {playCategory === 'post' ? '低位傳接動態推演模擬器' : '173cm 射手 45 度無球跑位模擬器'}
+          </h2>
           <p className="tactics-subtext">
-            精確模擬側翼傳球角度、中鋒卡位封鎖點 (Seal Point)、目標手 (Target Hand) 與擊地彈跳點 (Bounce Point)。支援步驟拆解與自動推演。
+            {playCategory === 'post'
+              ? '精確模擬側翼傳球角度、中鋒卡位封鎖點 (Seal Point)、目標手 (Target Hand) 與擊地彈跳點 (Bounce Point)。支援 3D 自由旋轉與後衛主觀視角！'
+              : '專為 173cm 矮個神射手打造：利用急停減速 (Deceleration)、貼身擦過掩護與 0.45 秒快速出手，撕裂對手防線！'}
           </p>
+        </div>
+
+        {/* Category Toggle Bar */}
+        <div className="board-category-switcher">
+          <button
+            className={`cat-tab-btn ${playCategory === 'post' ? 'active' : ''}`}
+            onClick={() => {
+              setPlayCategory('post');
+              setSelectedPlayId(POST_PLAYS[0].id);
+              setCurrentStepIndex(0);
+              setIsPlaying(false);
+            }}
+          >
+            🏀 低位餵球與卡位戰術 (5 套)
+          </button>
+
+          <button
+            className={`cat-tab-btn ${playCategory === 'shooter' ? 'active' : ''}`}
+            onClick={() => {
+              setPlayCategory('shooter');
+              setSelectedPlayId(SHOOTER_PLAYS[0].id);
+              setCurrentStepIndex(0);
+              setIsPlaying(false);
+            }}
+          >
+            🎯 173cm 射手 45° 無球跑位 (4 套)
+          </button>
         </div>
 
         {/* Play Picker Pills */}
         <div className="play-pills-scroll">
-          {POST_PLAYS.map((play, idx) => {
+          {currentPlayList.map((play, idx) => {
             const isActive = play.id === activePlay.id;
             return (
               <button
