@@ -11,19 +11,23 @@ const SEARCH_PRESETS = [
   { label: 'basketball post player seal defender', tag: '中鋒卡位' },
   { label: 'how to seal defender in the post', tag: '下盤鎖腳' },
   { label: 'post player target hand basketball', tag: '目標手' },
-  { label: 'pass away from defender basketball', tag: '遠離防守' },
-  { label: '5v5 post entry offense', tag: '5v5 戰術' },
-  { label: 'basketball post entry drill', tag: '訓練菜單' },
+  { label: 'Stephen Curry off ball movement breakdown', tag: '柯瑞無球' },
+  { label: 'pin down screen basketball shooting drill', tag: '下掩護投籃' },
+  { label: 'Warriors post split action', tag: '5v5 剪刀戰術' },
 ];
 
 export default function VideoLibrary() {
-  const [filter, setFilter] = useState<'all' | 'passer' | 'center' | 'team' | 'drill'>('all');
+  const [filter, setFilter] = useState<'all' | 'passer' | 'center' | 'shooter' | 'team' | 'drill'>('all');
   const [activeVideoEmbed, setActiveVideoEmbed] = useState<string | null>(null);
 
   const filteredVideos = POST_VIDEOS.filter((v) => {
     if (filter === 'all') return true;
     return v.category === filter;
   });
+
+  const handleOpenDirectVideo = (youtubeId: string) => {
+    window.open(`https://www.youtube.com/watch?v=${youtubeId}`, '_blank', 'noopener,noreferrer');
+  };
 
   const handleOpenSearch = (query: string) => {
     const url = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
@@ -34,14 +38,14 @@ export default function VideoLibrary() {
     <div className="video-library-section">
       <div className="video-header-block">
         <span className="section-pill">🎥 精選影音教學庫 Video Masterclass</span>
-        <h2 className="video-heading">大師級影音解析與實戰 Checklist</h2>
+        <h2 className="video-heading">18 部大師級實戰影音解析與 Checklist</h2>
         <p className="video-subtext">
-          精選全球知名教練、訓練機構與傳奇球星（SportsEdTV、ATTACKBball、Shot Science、Hakeem Olajuwon 等）的權威教學，附帶重點筆記與一鍵 YouTube 原片播放！
+          100% 驗證有效可播！精選全球頂級訓練師、NBA 名人堂大師（SportsEdTV、DICK'S Sporting Goods、Hakeem Olajuwon、Shot Science、By Any Means、Drew Hanlen 等）實戰教學，附高畫質縮圖與筆記！
         </p>
 
         {/* Quick Keyword Query Tags */}
         <div className="search-tags-box">
-          <div className="tags-label">🔍 點擊關鍵字一鍵直達 YouTube 深度搜尋：</div>
+          <div className="tags-label">🔍 點擊關鍵字直達 YouTube 探索更多：</div>
           <div className="tags-scroller">
             {SEARCH_PRESETS.map((item, i) => (
               <button
@@ -79,10 +83,16 @@ export default function VideoLibrary() {
             🛡️ 中鋒卡位要球 ({POST_VIDEOS.filter((v) => v.category === 'center').length})
           </button>
           <button
+            className={`filter-btn ${filter === 'shooter' ? 'active' : ''}`}
+            onClick={() => setFilter('shooter')}
+          >
+            ⚡ 173cm 射手無球 ({POST_VIDEOS.filter((v) => v.category === 'shooter').length})
+          </button>
+          <button
             className={`filter-btn ${filter === 'team' ? 'active' : ''}`}
             onClick={() => setFilter('team')}
           >
-            ⚡ 5v5 團隊體系 ({POST_VIDEOS.filter((v) => v.category === 'team').length})
+            🧠 5v5 團隊體系 ({POST_VIDEOS.filter((v) => v.category === 'team').length})
           </button>
           <button
             className={`filter-btn ${filter === 'drill' ? 'active' : ''}`}
@@ -97,17 +107,18 @@ export default function VideoLibrary() {
       <div className="video-cards-grid">
         {filteredVideos.map((video) => {
           const isEmbedOpen = activeVideoEmbed === video.id;
+          const thumbnailUrl = `https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`;
 
           return (
             <div key={video.id} className="video-card">
               {/* Top Media / Player Area */}
               <div className="video-media-box">
-                {isEmbedOpen && video.youtubeId ? (
+                {isEmbedOpen ? (
                   <div className="iframe-responsive-wrap">
                     <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1`}
+                      src={`https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0`}
                       title={video.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                       className="youtube-iframe"
                     ></iframe>
@@ -115,13 +126,19 @@ export default function VideoLibrary() {
                 ) : (
                   <div
                     className="video-poster-placeholder"
+                    style={{
+                      backgroundImage: `linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.88) 100%), url(${thumbnailUrl})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
                     onClick={() => setActiveVideoEmbed(video.id)}
+                    title="點擊直接在頁面播放影片"
                   >
                     <div className="poster-overlay">
-                      <button className="play-trigger-btn">
+                      <button className="play-trigger-btn" aria-label="播放影片">
                         <span className="play-triangle">▶</span>
                       </button>
-                      <div className="poster-hint">點擊內嵌播放或在 YouTube 觀看</div>
+                      <div className="poster-hint">點擊直接播放或前往原片</div>
                     </div>
                     <div className="poster-info">
                       <span className="poster-channel">{video.channel}</span>
@@ -133,19 +150,17 @@ export default function VideoLibrary() {
 
               {/* Action Bar */}
               <div className="video-action-bar">
-                {video.youtubeId && (
-                  <button
-                    className={`toggle-embed-btn ${isEmbedOpen ? 'active' : ''}`}
-                    onClick={() => setActiveVideoEmbed(isEmbedOpen ? null : video.id)}
-                  >
-                    {isEmbedOpen ? '關閉內嵌播放 ✖' : '在頁面直接播放 ▶'}
-                  </button>
-                )}
+                <button
+                  className={`toggle-embed-btn ${isEmbedOpen ? 'active' : ''}`}
+                  onClick={() => setActiveVideoEmbed(isEmbedOpen ? null : video.id)}
+                >
+                  {isEmbedOpen ? '關閉播放器 ✖' : '在頁面直接播放 ▶'}
+                </button>
 
                 <button
                   className="open-youtube-btn"
-                  onClick={() => handleOpenSearch(video.searchQuery)}
-                  title="在 YouTube 官方網站觀看高畫質影片"
+                  onClick={() => handleOpenDirectVideo(video.youtubeId)}
+                  title="在 YouTube 官方網站開啟此影片"
                 >
                   前往 YouTube 原片 ↗
                 </button>
