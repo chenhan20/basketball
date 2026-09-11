@@ -350,37 +350,152 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 12px 18px;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.45);
   border-bottom: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.live-indicator {
+.court-badge-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dimension-toggle-pill {
+  display: flex;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  gap: 3px;
+}
+
+.dim-btn {
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
   font-size: 12px;
   font-weight: 700;
-  color: var(--accent-emerald);
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.pulse-dot {
-  width: 8px;
-  height: 8px;
-  background: var(--accent-emerald);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--accent-emerald);
-  animation: pulse-live 1.5s infinite;
+.dim-btn:hover {
+  color: #fff;
 }
 
-.court-play-name {
-  font-size: 13.5px;
-  font-weight: 600;
-  color: var(--text-primary);
+.dim-btn.active {
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.4);
 }
 
 .court-inner-box {
-  padding: 12px;
-  background: #111726;
+  padding: 10px;
+  background: #080c16;
+}
+
+/* 3D Court Viewport & Floating Dock */
+.court-3d-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #080c16;
+}
+
+.court-3d-viewport {
+  width: 100%;
+  height: 520px;
+  display: block;
+  cursor: grab;
+}
+
+.court-3d-viewport:active {
+  cursor: grabbing;
+}
+
+.camera-switch-dock {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.dock-title {
+  font-size: 11px;
+  color: #cbd5e1;
+  font-weight: 700;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
+  background: rgba(15, 23, 42, 0.6);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.dock-buttons {
+  display: flex;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+  padding: 4px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.cam-mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.cam-mode-btn:hover:not(.active) {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.cam-mode-btn.active {
+  background: var(--accent-blue);
+  color: #080c16;
+  font-weight: 800;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+}
+
+.cam-icon {
+  font-size: 13px;
+}
+
+.court-3d-hint {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  padding: 4px 12px;
+  font-size: 11px;
+  color: #94a3b8;
+  pointer-events: none;
 }
 
 .court-wrapper {

@@ -2,12 +2,14 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Play } from '../types';
 import { POST_PLAYS } from '../data/postPlays';
 import PlayAnimation from './PlayAnimation';
+import Court3D from './Court3D';
 
 export default function PostTacticsBoard() {
   const [selectedPlayId, setSelectedPlayId] = useState<string>(POST_PLAYS[0].id);
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [playSpeed, setPlaySpeed] = useState<number>(1); // 1 = normal (2200ms), 1.5 = fast (1500ms)
+  const [viewDimension, setViewDimension] = useState<'3d' | '2d'>('3d');
   const timerRef = useRef<number | null>(null);
 
   const activePlay: Play = POST_PLAYS.find((p) => p.id === selectedPlayId) || POST_PLAYS[0];
@@ -96,24 +98,51 @@ export default function PostTacticsBoard() {
 
       {/* Main Board Grid */}
       <div className="tactics-board-grid">
-        {/* Left: SVG Basketball Court */}
+        {/* Left: 3D or 2D Basketball Court */}
         <div className="tactics-court-container">
           <div className="court-top-badge">
-            <span className="live-indicator">
-              <span className="pulse-dot"></span>
-              {isPlaying ? '戰術推演中 AUTO PLAY' : '單步解說模式 STEP MODE'}
-            </span>
-            <span className="court-play-name">{activePlay.nameZh}</span>
+            <div className="court-badge-left">
+              <span className="live-indicator">
+                <span className="pulse-dot"></span>
+                {isPlaying ? '戰術推演中 AUTO PLAY' : '單步解說模式 STEP MODE'}
+              </span>
+              <span className="court-play-name">{activePlay.nameZh}</span>
+            </div>
+
+            {/* 2D / 3D Dimension Switcher */}
+            <div className="dimension-toggle-pill">
+              <button
+                className={`dim-btn ${viewDimension === '3d' ? 'active' : ''}`}
+                onClick={() => setViewDimension('3d')}
+              >
+                🏀 3D 實景
+              </button>
+              <button
+                className={`dim-btn ${viewDimension === '2d' ? 'active' : ''}`}
+                onClick={() => setViewDimension('2d')}
+              >
+                📋 2D 戰術板
+              </button>
+            </div>
           </div>
 
           <div className="court-inner-box">
-            <PlayAnimation
-              step={currentStep}
-              previousStep={previousStep}
-              animate={true}
-              playType="offense"
-              courtView="half"
-            />
+            {viewDimension === '3d' ? (
+              <Court3D
+                step={currentStep}
+                previousStep={previousStep}
+                animate={true}
+                isPlaying={isPlaying}
+              />
+            ) : (
+              <PlayAnimation
+                step={currentStep}
+                previousStep={previousStep}
+                animate={true}
+                playType="offense"
+                courtView="half"
+              />
+            )}
           </div>
 
           {/* Quick Annotation Legend */}
