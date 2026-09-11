@@ -86,7 +86,7 @@ export default function VideoLibrary() {
             className={`filter-btn ${filter === 'shooter' ? 'active' : ''}`}
             onClick={() => setFilter('shooter')}
           >
-            ⚡ 173cm 射手無球 ({POST_VIDEOS.filter((v) => v.category === 'shooter').length})
+            ⚡ 射手無球跑位 ({POST_VIDEOS.filter((v) => v.category === 'shooter').length})
           </button>
           <button
             className={`filter-btn ${filter === 'team' ? 'active' : ''}`}

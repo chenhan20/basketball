@@ -1,20 +1,27 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Play } from '../types';
+import { SIMPLE_PLAYS } from '../data/simplePlays';
 import { POST_PLAYS } from '../data/postPlays';
 import { SHOOTER_PLAYS } from '../data/shooterPlays';
 import PlayAnimation from './PlayAnimation';
 import Court3D from './Court3D';
 
 export default function PostTacticsBoard() {
-  const [playCategory, setPlayCategory] = useState<'post' | 'shooter'>('post');
-  const [selectedPlayId, setSelectedPlayId] = useState<string>(POST_PLAYS[0].id);
+  const [playCategory, setPlayCategory] = useState<'simple' | 'post' | 'shooter'>('simple');
+  const [selectedPlayId, setSelectedPlayId] = useState<string>(SIMPLE_PLAYS[0].id);
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [playSpeed, setPlaySpeed] = useState<number>(1); // 1 = normal (2200ms), 1.5 = fast (1500ms)
   const [viewDimension, setViewDimension] = useState<'3d' | '2d'>('3d');
   const timerRef = useRef<number | null>(null);
 
-  const currentPlayList = playCategory === 'post' ? POST_PLAYS : SHOOTER_PLAYS;
+  const currentPlayList =
+    playCategory === 'simple'
+      ? SIMPLE_PLAYS
+      : playCategory === 'post'
+      ? POST_PLAYS
+      : SHOOTER_PLAYS;
+
   const activePlay: Play = currentPlayList.find((p) => p.id === selectedPlayId) || currentPlayList[0];
   const totalSteps = activePlay.steps.length;
   const currentStep = activePlay.steps[currentStepIndex];
@@ -69,24 +76,46 @@ export default function PostTacticsBoard() {
     };
   }, [isPlaying, playSpeed, totalSteps]);
 
+  const getHeading = () => {
+    if (playCategory === 'simple') return '極簡必勝實戰戰術模擬器';
+    if (playCategory === 'post') return '低位傳接動態推演模擬器';
+    return '45 度射手無球跑位模擬器';
+  };
+
+  const getSubtext = () => {
+    if (playCategory === 'simple') {
+      return '越簡單越致命！精選 5 套最容易上手、只需 2-3 步即可在實戰或街頭打球立刻得分的王道戰術。支援 3D 自由旋轉與 2D 俯瞰切換！';
+    }
+    if (playCategory === 'post') {
+      return '精確模擬側翼傳球角度、中鋒卡位封鎖點 (Seal Point)、目標手 (Target Hand) 與擊地彈跳點 (Bounce Point)。支援 3D 自由旋轉與後衛主觀視角！';
+    }
+    return '專為靈活射手打造：利用急停減速 (Deceleration)、貼身擦過掩護與 0.45 秒快速出手，撕裂對手防線！';
+  };
+
   return (
     <div className="post-tactics-section">
       {/* Header Banner */}
       <div className="tactics-header-block">
         <div className="tactics-title-wrap">
           <span className="section-pill">🏀 互動戰術板 Interactive Board</span>
-          <h2 className="tactics-heading">
-            {playCategory === 'post' ? '低位傳接動態推演模擬器' : '173cm 射手 45 度無球跑位模擬器'}
-          </h2>
-          <p className="tactics-subtext">
-            {playCategory === 'post'
-              ? '精確模擬側翼傳球角度、中鋒卡位封鎖點 (Seal Point)、目標手 (Target Hand) 與擊地彈跳點 (Bounce Point)。支援 3D 自由旋轉與後衛主觀視角！'
-              : '專為 173cm 矮個神射手打造：利用急停減速 (Deceleration)、貼身擦過掩護與 0.45 秒快速出手，撕裂對手防線！'}
-          </p>
+          <h2 className="tactics-heading">{getHeading()}</h2>
+          <p className="tactics-subtext">{getSubtext()}</p>
         </div>
 
         {/* Category Toggle Bar */}
         <div className="board-category-switcher">
+          <button
+            className={`cat-tab-btn ${playCategory === 'simple' ? 'active' : ''}`}
+            onClick={() => {
+              setPlayCategory('simple');
+              setSelectedPlayId(SIMPLE_PLAYS[0].id);
+              setCurrentStepIndex(0);
+              setIsPlaying(false);
+            }}
+          >
+            ⚡ 極簡必勝戰術 (5 套)
+          </button>
+
           <button
             className={`cat-tab-btn ${playCategory === 'post' ? 'active' : ''}`}
             onClick={() => {
@@ -96,7 +125,7 @@ export default function PostTacticsBoard() {
               setIsPlaying(false);
             }}
           >
-            🏀 低位餵球與卡位戰術 (5 套)
+            🏀 低位餵球與卡位 (5 套)
           </button>
 
           <button
@@ -108,7 +137,7 @@ export default function PostTacticsBoard() {
               setIsPlaying(false);
             }}
           >
-            🎯 173cm 射手 45° 無球跑位 (4 套)
+            🎯 45° 射手跑位 (4 套)
           </button>
         </div>
 

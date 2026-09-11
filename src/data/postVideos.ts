@@ -146,7 +146,7 @@ export const POST_VIDEOS: PostVideo[] = [
     ],
   },
 
-  // ── 3. 173cm 射手無球走位 (Shooter & Off-Ball) ────────────────────────────
+  // ── 3. 靈活射手無球走位 (Shooter & Off-Ball) ────────────────────────────
   {
     id: 'curry-art-of-offball',
     title: 'Stephen Curry’s ART of Off Ball Movement — 6 Ways',
@@ -155,7 +155,7 @@ export const POST_VIDEOS: PostVideo[] = [
     youtubeId: 'wgiFZ8H5440',
     searchQuery: 'Stephen Curry art of off ball movement By Any Means',
     category: 'shooter',
-    badge: '173cm 必修跑位',
+    badge: '射手必修跑位',
     summary: '深層剖析身材偏矮後衛如何靠「變速急停」、「幽靈掩護 (Ghost Screen)」、「後仰退回 (Fade Cut)」在三分線外撕開防守獲取大空檔。',
     keyPoints: [
       '用減速 (Deceleration) 取勝：全速衝刺突然急停踩剎車，防守者會因慣性衝過頭 1-2 公尺。',
@@ -163,7 +163,7 @@ export const POST_VIDEOS: PostVideo[] = [
       '幽靈掩護 (Ghost Screen)：假裝要過去擋拆，在碰觸前瞬間彈出三分線外，讓換防陷入混亂。',
       '永不停歇的再定位 (Relocation)：只要隊友切入或低位持球，射手就必須移動到傳球視線對角。',
     ],
-    proTip: '「防守者不怕你跑得快，最怕你忽快忽慢！」173cm 射手最頂級的武器是急停剎車節奏。',
+    proTip: '「防守者不怕你跑得快，最怕你忽快忽慢！」靈活射手最頂級的武器是急停剎車節奏。',
     commonMistakes: [
       '等球到了手才想著怎麼投，沒有在無球跑動中就完成出手瞄準。',
       '與掩護者距離太寬，讓追防者輕鬆擠過。',
@@ -202,7 +202,7 @@ export const POST_VIDEOS: PostVideo[] = [
     keyPoints: [
       '空中預備 (Catch in the Air)：在接球瞬間整個人已經完成空中面框。',
       '雙腳平穩落點：落地同時下肢吸震壓縮，儲存起跳彈力，做到零停頓出手。',
-      '縮短出手時間 0.2~0.4 秒：對 173cm 球員來說，這 0.3 秒就是干擾與空檔的天壤之別。',
+      '縮短出手時間 0.2~0.4 秒：對小個後衛來說，這 0.3 秒就是干擾與空檔的天壤之別。',
     ],
     proTip: '跳步著地時膝蓋微微內夾蓄力，千萬不要踏成大八字步分散了垂直彈跳力。',
     commonMistakes: [
@@ -265,7 +265,7 @@ export const POST_VIDEOS: PostVideo[] = [
       '閱讀換防遲疑：當防守者溝通出現 0.3 秒空檔時，直接吊球給切入者。',
       '弱側底角拉開：弱側射手必須維持底角三分站位，牽制對手弱側協防球員。',
     ],
-    proTip: 'Split Action 是專門為 173cm 靈活射手量身打造的致命戰術，身材小反而切入更快。',
+    proTip: 'Split Action 是專門為靈活射手量身打造的致命戰術，身材小反而切入更快。',
     commonMistakes: [
       '掩護角度設得太斜，讓防守者能直接抄捷徑攔截傳球路線。',
     ],

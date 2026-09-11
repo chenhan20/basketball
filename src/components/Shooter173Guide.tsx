@@ -8,12 +8,12 @@ export default function Shooter173Guide() {
       {/* Header Banner */}
       <div className="shooter-header-block">
         <div className="shooter-badge-row">
-          <span className="section-pill">🎯 專屬特訓指南 Undersized Sniper Blueprint</span>
-          <span className="hero-tag">173cm 身材 × 45 度三分甜區 × 無球跑位專題</span>
+          <span className="section-pill">🎯 射手特訓指南 Sniper Blueprint</span>
+          <span className="hero-tag">低重心優勢 × 45 度三分甜區 × 無球跑位專題</span>
         </div>
-        <h2 className="shooter-heading">173cm 小個子神射手：45 度無球跑位完全手冊</h2>
+        <h2 className="shooter-heading">靈活射手專區：45 度無球跑位與急停出手完全手冊</h2>
         <p className="shooter-subtext">
-          身材 173cm 在球場上絕不是劣勢！低重心、變速減速 (Deceleration) 與借掩護甩開防守的爆發力，反而能讓你在 45 度三分線成為防守者的惡夢。
+          低重心、極速急停減速 (Deceleration) 與借掩護甩開防守的爆發力，能讓你在 45 度三分線成為所有防守者的終極夢魘。
         </p>
 
         {/* Section Navigation Tabs */}
@@ -23,7 +23,7 @@ export default function Shooter173Guide() {
             onClick={() => setActiveSection('philosophy')}
           >
             <span className="btn-icon">⚡</span>
-            <span>173cm 生存哲學與 45° 甜區</span>
+            <span>跑位哲學與 45° 甜區</span>
           </button>
 
           <button
@@ -66,10 +66,10 @@ export default function Shooter173Guide() {
         {activeSection === 'philosophy' && (
           <div className="shooter-tab-panel">
             <div className="panel-intro-box">
-              <span className="panel-tag">👑 矮個射手的致命武器</span>
-              <h3 className="panel-title">為什麼 173cm 在 45 度三分線是防守者的終極夢魘？</h3>
+              <span className="panel-tag">👑 靈活射手的致命武器</span>
+              <h3 className="panel-title">為什麼低重心在 45 度三分線是防守者的終極夢魘？</h3>
               <p className="panel-desc">
-                不要試圖在身高上與 185cm、190cm 的防守者硬碰！NBA 巨星柯瑞 (Stephen Curry)、雷艾倫 (Ray Allen) 與瑞迪克 (JJ Redick) 證明了：
+                不要試圖在身材上與高大防守者硬碰！NBA 巨星柯瑞 (Stephen Curry)、雷艾倫 (Ray Allen) 與瑞迪克 (JJ Redick) 證明了：
                 真正決定無球射手命運的是<b>「急停減速的能力 (Deceleration)」</b>與<b>「借用隊友肉盾掩護的精確度」</b>。
               </p>
             </div>
@@ -79,7 +79,7 @@ export default function Shooter173Guide() {
                 <div className="pillar-icon">🛑</div>
                 <h4 className="pillar-title">1. 「急停減速」大於「衝刺速度」</h4>
                 <p className="pillar-text">
-                  高大長人質量大、慣性大，跑動時煞車至少需要 1.5 到 2 步；而 173cm 身高重心極低，你可以在極限衝刺中<b>「一步定竿煞車」</b>！
+                  高大長人質量大、慣性大，跑動時煞車至少需要 1.5 到 2 步；而靈活射手重心極低，你可以在極限衝刺中<b>「一步定竿煞車」</b>！
                   當你在 45 度三分線突然踩死煞車時，追防你的防守者會因為慣性直接滑過頭，留下 1.5 米的絕對大空檔！
                 </p>
               </div>
@@ -97,7 +97,7 @@ export default function Shooter173Guide() {
                 <div className="pillar-icon">⚡</div>
                 <h4 className="pillar-title">3. 0.45 秒閃電出手 (Quick Release)</h4>
                 <p className="pillar-text">
-                  173cm 身材千萬不要像教科書那樣慢條斯理地「接球、蹲下、瞄準、起跳」。
+                  外線射手千萬不要慢條斯理地「接球、蹲下、瞄準、起跳」。
                   無球跑位的最高境界是<b>「借地起跳」</b>：在接球落地前的瞬間，雙膝已經微屈蓄力，球剛碰到手指，下半身的力量已經推動身體垂直升空！
                 </p>
               </div>
@@ -119,7 +119,7 @@ export default function Shooter173Guide() {
           <div className="shooter-tab-panel">
             <div className="panel-intro-box">
               <span className="panel-tag">🦶 腿部力學與下盤根基</span>
-              <h3 className="panel-title">173cm 必修三大無球接球腳步 (Shooting Footwork)</h3>
+              <h3 className="panel-title">必修三大無球接球腳步 (Shooting Footwork)</h3>
               <p className="panel-desc">
                 命中率不高，90% 不是手部姿勢的問題，而是「腳步沒有踩穩就出手」！掌握這三種腳步，你在 45 度接球瞬間就已經具備完美投籃平衡。
               </p>
@@ -141,12 +141,12 @@ export default function Shooter173Guide() {
               </div>
 
               <div className="footwork-card">
-                <div className="fw-badge">腳步 02 · 極速出水</div>
+                <div className="fw-badge">腳步 02 · 極速出手</div>
                 <h4 className="fw-title">雙腳墊步 (The Hop Catch)</h4>
                 <div className="fw-subtitle">適用場景：時間只剩最後 1 秒，或防守者極度靠近時</div>
                 <p className="fw-desc">
                   在球即將到達雙手的前 0.1 秒，身體在空中做一個微小的向前跳步 (Hop)，<b>雙手觸球與雙腳著地在同一瞬間完成</b>！
-                  雙腳一觸地立刻借力回彈升空，完全省去 1-2 踏步的轉移時間，出手時間直接壓縮至 0.4 秒以內，長人根本來不及起跳封蓋。
+                  雙腳一觸地立刻借力回彈升空，完全省去 1-2 踏步的轉移時間，出手時間直接壓縮至 0.4 秒以內，高大防守者根本來不及起跳封蓋。
                 </p>
                 <div className="fw-key-tips">
                   <span className="tip-dot">💡</span>
@@ -157,7 +157,7 @@ export default function Shooter173Guide() {
               <div className="footwork-card">
                 <div className="fw-badge">腳步 03 · 防封蓋神技</div>
                 <h4 className="fw-title">Sweep & Sway (腳前掃 · 身微後傾)</h4>
-                <div className="fw-subtitle">適用場景：面對 185cm+ 長人迎面撲防 (Contest)</div>
+                <div className="fw-subtitle">適用場景：面對高大長人迎面撲防 (Contest)</div>
                 <p className="fw-desc">
                   起跳出手時，<b>雙腳自然向前擺動 10~15 度，上半身放鬆自然向後微傾</b>（就像坐在鞦韆上一樣）。
                   這不是故意後仰跳投，而是自然的重心代償！它能讓你的投籃出手點硬生生向後拉開 15~20 公分，並且讓投籃弧度高達 50 度以上，長人只能望球興嘆！
@@ -192,7 +192,7 @@ export default function Shooter173Guide() {
                 <div className="decision-body">
                   <p className="decision-reaction">
                     <b>🎯 射手解法：【捲曲切入 (Curl Cut)】</b><br />
-                    防守者為了封殺你的 45 度三分，跟在你的屁股後面加速追趕。這時你<b>絕對不要彈出外線</b>！
+                    防守者為了封殺你的 45 度三分，跟在身後加速追趕。這時你<b>絕對不要彈出外線</b>！
                     緊貼隊友肩膀順勢向籃下「捲曲切入 (Curl)」，隊友的身體會像一堵牆把防守者卡死在身後，你直插禁區挑籃輕鬆得分！
                   </p>
                 </div>
@@ -235,7 +235,7 @@ export default function Shooter173Guide() {
           <div className="shooter-tab-panel">
             <div className="panel-intro-box">
               <span className="panel-tag">📋 四套實戰王牌戰術</span>
-              <h3 className="panel-title">173cm 專屬 45 度無球戰術庫（已實裝至 3D 戰術板）</h3>
+              <h3 className="panel-title">專屬 45 度無球戰術庫（已實裝至 3D 戰術板）</h3>
               <p className="panel-desc">
                 以下四套戰術已全部整合進上方的「互動戰術板」，你可以隨時切換 3D/2D 模式或「後衛主觀視角 (Passer POV)」查看推演細節！
               </p>
@@ -246,7 +246,7 @@ export default function Shooter173Guide() {
                 <div className="t-card-badge">Play 01 · 必修基礎</div>
                 <h4 className="t-card-title">Corner Pin-Down to 45° (底角下掩護彈出)</h4>
                 <p className="t-card-p">
-                  <b>戰術起手：</b>173cm SG 在底角沉底，中鋒在低位站定。<br />
+                  <b>戰術起手：</b>SG 在底角沉底，中鋒在低位站定。<br />
                   <b>跑位路線：</b>SG 突然加速擦過中鋒肩膀彈向 45 度三分線，追防者被中鋒肉盾擋停，SG 接弧頂分球 0.5 秒三分拔起！
                 </p>
               </div>

@@ -8,7 +8,7 @@ import VideoLibrary from './components/VideoLibrary';
 import DrillStation from './components/DrillStation';
 import PostQuiz from './components/PostQuiz';
 
-type ActiveTab = 'tactics' | 'shooter173' | 'mechanics' | 'offense' | 'videos' | 'drills' | 'quiz';
+type ActiveTab = 'tactics' | 'shooter' | 'mechanics' | 'offense' | 'videos' | 'drills' | 'quiz';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('tactics');
@@ -21,7 +21,7 @@ export default function App() {
           <div className="brand-logo-icon">🏀</div>
           <div className="brand-text-block">
             <h1 className="brand-title">HOOPS LAB · 籃球技術分享庫</h1>
-            <span className="brand-subtitle">低位餵球 (Post Feed) × 173cm 射手 45° 無球跑位完全指南</span>
+            <span className="brand-subtitle">極簡實戰戰術 × 低位餵球 × 45° 射手跑位完全指南</span>
           </div>
         </div>
 
@@ -36,11 +36,11 @@ export default function App() {
           </button>
 
           <button
-            className={`nav-tab-link ${activeTab === 'shooter173' ? 'active' : ''}`}
-            onClick={() => setActiveTab('shooter173')}
+            className={`nav-tab-link ${activeTab === 'shooter' ? 'active' : ''}`}
+            onClick={() => setActiveTab('shooter')}
           >
             <span className="tab-link-icon">🎯</span>
-            <span>173cm 射手專區</span>
+            <span>45° 射手專區</span>
           </button>
 
           <button
@@ -96,14 +96,14 @@ export default function App() {
             從傳球角度、擊地手法，到中鋒下盤鎖腳、目標手與 5v5 剪刀戰術
           </h2>
           <p className="hero-desc">
-            比賽結束，技術永存！這是一套專門針對「側翼如何餵球給中鋒」與「中鋒如何卡位要求」的實戰教學庫。
-            包含 5 套 SVG 動態推演、肢體力學槓桿、勇士隊 Split Cut、NBA 名人堂影音以及科學特訓課表。
+            比賽結束，技術永存！這是一套專門針對「極簡必勝戰術」、「側翼餵球給中鋒」與「45° 射手跑位」的實戰教學庫。
+            包含 14 套動態推演、肢體力學槓桿、勇士隊 Split Cut、NBA 名人堂影音以及科學特訓課表。
           </p>
 
           {/* Quick Highlights Row */}
           <div className="hero-stats-row">
             <div className="stat-card">
-              <span className="stat-num">5</span>
+              <span className="stat-num">14</span>
               <span className="stat-label">套動態戰術推演</span>
             </div>
             <div className="stat-card">
@@ -111,7 +111,7 @@ export default function App() {
               <span className="stat-label">項攻防肢體槓桿</span>
             </div>
             <div className="stat-card">
-              <span className="stat-num">7</span>
+              <span className="stat-num">18</span>
               <span className="stat-label">部權威影音解析</span>
             </div>
             <div className="stat-card">
@@ -125,7 +125,7 @@ export default function App() {
       {/* ── Main Dynamic Tab Content ────────────────────────────────────────── */}
       <main className="main-content-area">
         {activeTab === 'tactics' && <PostTacticsBoard />}
-        {activeTab === 'shooter173' && <Shooter173Guide />}
+        {activeTab === 'shooter' && <Shooter173Guide />}
         {activeTab === 'mechanics' && <PostMechanicsGuide />}
         {activeTab === 'offense' && <PostOffense5v5 />}
         {activeTab === 'videos' && <VideoLibrary />}
